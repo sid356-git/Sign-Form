@@ -3,136 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empire Canopy • Sign • Construction - Sign Survey Platform</title>
-    <!-- Tailwind CSS v4 CDN -->
+    <title>Empire Construction - Ground Sign Survey Platform</title>
+    <!-- Tailwind CSS v4 Runtime Component Library Engine -->
     <script src="https://jsdelivr.net"></script>
-    <!-- Google Fonts for Professional Typography -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    <link href="https://googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- html2pdf Engine Core -->
+    <!-- Material Icons Standard Framework Layer -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- html2pdf Core Rendering Dependency Platform Stack -->
     <script src="https://cloudflare.com"></script>
     
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
         .step-panel { display: none; }
         .step-panel.active { display: block; }
-        /* Custom scrollbar adjustments for premium density presentation */
+        .matrix-row { transition: all 0.2s ease-in-out; }
+        .matrix-row:hover, .matrix-row.active { stroke: #3b82f6; fill: rgba(59, 130, 246, 0.12); }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 min-h-screen flex flex-col antialiased select-none">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-blue-600/30">
 
-    <!-- 🔒 SECURITY ACCESS LOCK GATEWAY CONTAINER -->
-    <div id="securityGate" class="fixed inset-0 z-50 bg-slate-900 flex flex-col justify-center items-center px-4">
-        <div class="bg-white p-8 rounded-2xl border border-slate-200 max-w-md w-full shadow-2xl flex flex-col items-center">
-            <!-- Corporate Brand Mark Representation -->
-            <div class="w-28 h-16 mb-4 flex items-center justify-center">
-                <svg viewBox="0 0 216 112" class="w-full h-full object-contain" xmlns="http://w3.org">
-                    <path d="M 40 90 C 40 25, 108 25, 108 90" fill="none" stroke="#ef4444" stroke-width="18" stroke-linecap="square"/>
-                    <path d="M 108 90 C 108 25, 176 25, 176 90" fill="none" stroke="#0b3c95" stroke-width="18" stroke-linecap="square"/>
-                    <path d="M 68 90 L 68 55 M 108 90 L 108 55 M 148 90 L 148 55" fill="none" stroke="#0b3c95" stroke-width="12"/>
-                    <line x1="20" y1="90" x2="196" y2="90" stroke="#1e293b" stroke-width="10"/>
-                </svg>
-            </div>
-            <h2 class="text-xl font-black uppercase tracking-tight text-slate-900 text-center leading-none">Empire</h2>
-            <p class="text-[9px] uppercase tracking-widest text-slate-400 font-extrabold mt-1.5 text-center mb-8">Canopy • Sign • Construction</p>
-            
-            <div class="w-full space-y-4">
-                <div>
-                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Field Protocol Authorization Password</label>
-                    <div class="relative">
-                        <span class="material-icons absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
-                        <input type="password" id="gatePass" placeholder="••••••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm tracking-widest font-mono text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
-                    </div>
+    <!-- PASSWORD ACCREDITATION GATEWAY PORTAL SCREEN -->
+    <div id="passwordGate" class="fixed inset-0 bg-slate-950 z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl">
+            <div class="flex justify-center mb-5">
+                <!-- Precision Master Replica Vector Box Layer -->
+                <div class="bg-white p-3 rounded-xl inline-block shadow-inner h-20 w-32 flex items-center justify-center">
+                    <svg viewBox="0 0 120 70" class="w-full h-full max-h-full max-w-full" xmlns="http://w3.org">
+                        <path d="M 18 55 C 18 10, 56 10, 56 55" fill="none" stroke="#ef4444" stroke-width="12" stroke-linecap="square"/>
+                        <path d="M 64 55 C 64 10, 102 10, 102 55" fill="none" stroke="#0b3c95" stroke-width="12" stroke-linecap="square"/>
+                        <line x1="12" y1="56" x2="108" y2="56" stroke="#0f172a" stroke-width="3" stroke-linecap="square"/>
+                    </svg>
                 </div>
-                <button onclick="verifyAccessKey()" class="w-full bg-slate-950 text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-xl hover:bg-slate-800 transition-all cursor-pointer shadow-sm">
-                    Validate Protocol Access
-                </button>
-                <p id="gateErr" class="text-xs text-red-600 font-semibold text-center hidden">Invalid Protocol Access Code</p>
             </div>
+            <h2 class="text-base font-black tracking-tight text-slate-100 uppercase">Empire Portal</h2>
+            <p class="text-[11px] text-slate-400 mb-6 font-medium uppercase tracking-wider">Sign Survey Field Utility Access</p>
+            <input type="password" id="crewPassword" placeholder="Enter Crew Passcode" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-center text-sm font-mono focus:outline-none focus:border-blue-500 tracking-widest mb-4 placeholder:text-slate-600 text-white">
+            <button onclick="verifyAccess()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg transition-all text-xs uppercase tracking-wider cursor-pointer">Authenticate Unit</button>
+            <p id="gateError" class="text-red-400 text-xs mt-3 hidden flex items-center justify-center gap-1 font-semibold">
+                <span class="material-icons text-xs">error</span> Access Denied. Check Token Code.
+            </p>
         </div>
     </div>
 
-    <!-- 🛠️ CORE SURVEY SUITE CORE DASHBOARD WORKSPACE -->
-    <div id="dashboardApp" class="hidden flex-1 flex flex-col min-h-screen">
+    <!-- MAIN DASHBOARD APPARATUS WORKSPACE PLATFORM CONTAINER -->
+    <div id="appInterface" class="hidden flex-1 flex flex-col min-h-screen">
         
-        <!-- FLUID HIGH-END MASTER SYSTEM HEADER -->
-        <header class="bg-white border-b border-slate-200 px-6 py-3 sticky top-0 z-40 shadow-xs flex justify-between items-center h-16 shrink-0">
-            <div class="flex items-center space-x-3">
-                <div class="w-16 h-10 flex items-center justify-center">
-                    <svg viewBox="0 0 216 112" class="w-full h-full object-contain" xmlns="http://w3.org">
-                        <path d="M 40 90 C 40 25, 108 25, 108 90" fill="none" stroke="#ef4444" stroke-width="18" stroke-linecap="square"/>
-                        <path d="M 108 90 C 108 25, 176 25, 176 90" fill="none" stroke="#0b3c95" stroke-width="18" stroke-linecap="square"/>
-                        <path d="M 68 90 L 68 55 M 108 90 L 108 55 M 148 90 L 148 55" fill="none" stroke="#0b3c95" stroke-width="12"/>
-                        <line x1="20" y1="90" x2="196" y2="90" stroke="#1e293b" stroke-width="10"/>
+        <!-- HIGH-END CONTEXT HEADLINE BAR -->
+        <header class="bg-slate-900 border-b border-slate-800 px-6 py-3 sticky top-0 z-40 shadow-md flex justify-between items-center">
+            <div class="flex items-center space-x-3.5">
+                <div class="bg-white p-1 rounded-lg shadow-md flex items-center justify-center h-11 w-20">
+                    <svg viewBox="0 0 120 70" class="w-full h-full" xmlns="http://w3.org">
+                        <path d="M 18 55 C 18 10, 56 10, 56 55" fill="none" stroke="#ef4444" stroke-width="12" stroke-linecap="square"/>
+                        <path d="M 64 55 C 64 10, 102 10, 102 55" fill="none" stroke="#0b3c95" stroke-width="12" stroke-linecap="square"/>
+                        <line x1="12" y1="56" x2="108" y2="56" stroke="#0f172a" stroke-width="3" stroke-linecap="square"/>
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-sm font-black tracking-tight text-slate-900 uppercase leading-none">Empire</h1>
+                    <h1 class="text-sm font-black tracking-wider text-slate-100 leading-none uppercase">EMPIRE</h1>
                     <p class="text-[8px] uppercase tracking-widest text-slate-400 font-extrabold mt-0.5">Canopy • Sign • Construction</p>
                 </div>
             </div>
-            
             <div class="text-right flex flex-col items-end">
-                <span class="bg-slate-50 text-slate-800 text-[9px] px-2.5 py-1 rounded-md font-bold border border-slate-200 uppercase tracking-wider shadow-2xs">
-                    Sign Survey Interface
+                <span class="bg-blue-500/10 text-blue-400 text-[9px] px-2.5 py-0.5 rounded-md font-bold border border-blue-500/20 uppercase tracking-wider shadow-2xs">
+                    Sign Survey Utility
                 </span>
-                <span id="stepCount" class="text-[9px] text-slate-400 font-mono mt-0.5 font-bold">Step 1 of 3</span>
+                <span id="stepCount" class="text-[10px] text-slate-500 font-mono mt-1 font-bold">Step 1 of 3</span>
             </div>
         </header>
 
-        <!-- TWO-COLUMN FLUID SCALING VIEWPORT APPARATUS -->
-        <main class="flex-1 flex flex-col lg:flex-row w-full max-w-[1600px] mx-auto p-4 gap-6 items-stretch mb-20 overflow-hidden">
+        <!-- FLEX TWO-COLUMN STRUCTURAL SYSTEM PANELS GRID -->
+        <div class="flex-1 lg:flex lg:overflow-hidden max-w-7xl w-full mx-auto">
             
-            <!-- LEFT COMPONENT COLUMN: REAL-TIME DYNAMIC DRAWING SCHEMATIC PANEL -->
-            <section class="w-full lg:w-1/2 xl:w-5/12 flex">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs w-full flex flex-col items-center justify-between min-h-[450px] lg:min-h-0 relative">
-                    <span class="text-[10px] font-black tracking-widest text-slate-400 uppercase mb-4 block text-center" id="diagramTitle">
-                        INTERACTIVE CABINET BLUEPRINT
+            <!-- LEFT SCREEN VIEWPORT COLUMN: CONTROL INTERACTIVE CANVAS COMPONENT -->
+            <section class="w-full lg:w-5/12 bg-slate-950 p-4 lg:p-6 border-b lg:border-b-0 lg:border-r border-slate-800/80 flex items-center justify-center lg:sticky lg:top-0 h-auto lg:h-full z-20 shadow-xl lg:shadow-none">
+                <div class="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-inner flex flex-col items-center">
+                    <span class="text-[10px] font-black tracking-widest text-slate-500 uppercase mb-4 block text-center" id="diagramTitle">
+                        Interactive Cabinet Blueprint
                     </span>
                     
-                    <!-- DRAWING CONTAINER VIEWPORT -->
-                    <div class="flex-1 w-full flex items-center justify-center overflow-hidden py-4">
-                        
-                        <!-- VIEWPORT 1: STACKED CABINET SCHEMATIC MAP -->
-                        <div id="canvas-matrix" class="w-full flex justify-center items-center">
-                            <div class="flex items-center gap-6 w-full max-w-sm justify-center">
-                                <div id="visual-stack-container" class="flex flex-col gap-2 w-48 items-center">
-                                    <!-- Script targets dynamic layout boxes here -->
-                                </div>
-                                <div class="flex flex-col justify-between h-64 text-slate-400 font-mono text-[10px]">
-                                    <span class="material-icons text-sm leading-none">arrow_upward</span>
-                                    <div class="w-[1px] h-full bg-slate-200 mx-auto"></div>
-                                    <span class="material-icons text-sm leading-none">arrow_downward</span>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- DISPLAY MATRIX VISUAL 1: MULTI-STACK SECTIONS LAYOUT -->
+                    <div id="canvas-matrix" class="w-full flex justify-center py-4">
+                        <svg width="180" height="260" viewBox="0 0 180 260" class="overflow-visible">
+                            <!-- Module Array 1 -->
+                            <rect id="v-ret1" onclick="focusCardField(1)" x="20" y="10" width="100" height="48" rx="6" class="matrix-row stroke-slate-700 fill-slate-950 cursor-pointer active" stroke-width="1.5"/>
+                            <text x="70" y="34" text-anchor="middle" class="fill-slate-400 text-xs font-bold pointer-events-none">Module #1</text>
+                            <text id="lbl-m1" x="70" y="47" text-anchor="middle" class="fill-blue-400 text-[9px] font-mono pointer-events-none"></text>
 
-                        <!-- VIEWPORT 2: STRUCTURAL ELEVATION & ROADWAY PROFILE -->
-                        <div id="canvas-elevation" class="w-full hidden justify-center">
-                            <svg width="320" height="280" viewBox="0 0 320 280" class="overflow-visible w-full max-w-xs">
-                                <!-- Double Support Columns Schematic -->
-                                <rect x="90" y="50" width="16" height="150" fill="#475569" rx="1"/>
-                                <rect x="214" y="50" width="16" height="150" fill="#475569" rx="1"/>
-                                <!-- Simulated Sign Cabinet Layout Base -->
-                                <rect x="60" y="50" width="200" height="70" rx="4" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
-                                <!-- Grade Line Representation -->
-                                <line x1="20" y1="200" x2="300" y2="200" stroke="#0f172a" stroke-width="4" stroke-linecap="round"/>
-                                <text x="270" y="220" class="fill-slate-400 font-black text-[9px] tracking-wider uppercase">GRADE</text>
+                            <!-- Module Array 2 -->
+                            <rect id="v-ret2" onclick="focusCardField(2)" x="20" y="68" width="100" height="48" rx="6" class="matrix-row stroke-slate-700 fill-slate-950 cursor-pointer" stroke-width="1.5"/>
+                            <text x="70" y="92" text-anchor="middle" class="fill-slate-400 text-xs font-bold pointer-events-none">Module #2</text>
+                            <text id="lbl-m2" x="70" y="105" text-anchor="middle" class="fill-blue-400 text-[9px] font-mono pointer-events-none"></text>
 
-                                <!-- Dimension Height Profiles Mapping (Overall) -->
-                                <g fill="none" stroke="#2563eb" stroke-width="1.5">
-                                    <path d="M 40 50 L 40 200"/>
-                                    <path d="M 36 58 L 40 50 L 44 58"/>
-                                    <path d="M 36 192 L 40 200 L 44 192"/>
-                                </g>
-                                <text x="28" y="125" text-anchor="middle" transform="rotate(-90 28,125)" class="fill-blue-600 font-mono text-[9px] font-bold tracking-wider">OVERALL HT</text>
+                            <!-- Module Array 3 -->
+                            <rect id="v-ret3" onclick="focusCardField(3)" x="20" y="126" width="100" height="48" rx="6" class="matrix-row stroke-slate-700 fill-slate-950 cursor-pointer" stroke-width="1.5"/>
+                            <text x="70" y="150" text-anchor="middle" class="fill-slate-400 text-xs font-bold pointer-events-none">Module #3</text>
+                            <text id="lbl-m3" x="70" y="163" text-anchor="middle" class="fill-blue-400 text-[9px] font-mono pointer-events-none"></text>
 
-                                <!-- Dimension Clearance Mapping Lines -->
-                                <g fill="none" stroke="#16a34a" stroke-width="1.5">
-                                    <path d="M 280 120 L 280 200"/>
+                            <!-- Module Array 4 -->
+                            <rect id="v-ret4" onclick="focusCardField(4)" x="20" y="184" width="100" height="48" rx="6" class="matrix-row stroke-slate-700 fill-slate-950 cursor-pointer" stroke-width="1.5"/>
+                            <text x="70" y="208" text-anchor="middle" class="fill-slate-400 text-xs font-bold pointer-events-none">Module #4</text>
+                            <text id="lbl-m4" x="70" y="221" text-anchor="middle" class="fill-blue-400 text-[9px] font-mono pointer-events-none"></text>
+
+                            <!-- Vertical Reference Stack Rules Anchor -->
+                            <line x1="140" y1="10" x2="140" y2="232" stroke="#475569" stroke-width="1.2"/>
+                            <path d="M136,15 L140,10 L144,15 M136,227 L140,232 L144,227" fill="none" stroke="#475569" stroke-width="1.2"/>
+                        </svg>
+                    </div>
+
+                    <!-- DISPLAY MATRIX VISUAL 2: FIELD ELEVATION DIAGRAM -->
+                    <div id="canvas-elevation" class="w-full hidden py-2 flex justify-center">
+                        <svg width="220" height="240" viewBox="0 0 220 240" class="overflow-visible">
+                            <!-- Pole Mount Structural Body Schematic Map Layer -->
+                            <rect x="50" y="30" width="120" height="60" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+                            <rect x="75" y="90" width="14" height="110" fill="#334155"/>
+                            <rect x="131" y="90" width="14" height="110" fill="#334155"/>
+                            <line x1="10" y1="200" x2="210" y2="200" stroke="#e2e8f0" stroke-width="2.5"/>
+                            <text x="185" y="215" class="fill-slate-500 text-[10px] font-black tracking-wider uppercase">Grade</text>
+
+                            <!-- High-Contrast Vector Calibration Anchors -->
