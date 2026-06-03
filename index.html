@@ -3,123 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empire Construction - Ground Sign Survey Platform</title>
-    <!-- Tailwind CSS v4 CDN -->
+    <title>Empire Canopy, Sign & Construction - Sign Survey Platform</title>
+    <!-- Tailwind CSS v3 Production Engine -->
     <script src="https://jsdelivr.net"></script>
-    <!-- Google Fonts for Professional Typography -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- html2pdf Engine Core -->
+    <!-- Material Design Icon Typography -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- html2pdf.js Production Distribution Package -->
     <script src="https://cloudflare.com"></script>
-    
     <style>
-        body { font-family: 'Inter', sans-serif; }
         .step-panel { display: none; }
         .step-panel.active { display: block; }
+        @media print {
+            body { background: white; color: black; }
+            .no-print { display: none !important; }
+        }
     </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 min-h-screen flex flex-col antialiased select-none">
+<body class="bg-slate-100 text-slate-900 min-h-screen font-sans flex flex-col">
 
-    <!-- MAIN PLATFORM COMPONENT INTERFACE -->
-    <div id="appInterface" class="flex-1 flex flex-col min-h-screen">
+    <!-- PRIMARY WEB APPLICATION CONTAINER LAYER -->
+    <div id="app-workspace" class="flex-1 flex flex-col no-print">
         
-        <!-- HIGH-END APP HEADER -->
-        <header class="bg-white border-b border-slate-200 px-6 py-3 sticky top-0 z-40 shadow-xs flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <!-- Empire Exact Base64 Corporate Image Asset Header -->
-                <img src="data:image/png;base64,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" alt="Empire Logo" class="h-14 w-auto object-contain">
+        <!-- HIGH-FIDELITY APPLICATION HEADER -->
+        <header class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-50 shadow-xs flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <!-- EXPLICIT COMPANY LOGO GRAPHIC ENGINE -->
+                <div class="w-16 h-12 flex items-center justify-center">
+                    <svg viewBox="0 0 230 160" class="w-full h-full" xmlns="http://w3.org">
+                        <!-- RED HIGHER ARCH -->
+                        <path d="M 30 110 C 30 15, 200 15, 200 110" fill="none" stroke="#e11d48" stroke-width="24" stroke-linecap="square"/>
+                        <!-- BLUE COLUMN PILLARS -->
+                        <path d="M 75 60 L 75 125" fill="none" stroke="#1d4ed8" stroke-width="20" stroke-linecap="square"/>
+                        <path d="M 115 50 L 115 125" fill="none" stroke="#1d4ed8" stroke-width="20" stroke-linecap="square"/>
+                        <path d="M 155 60 L 155 125" fill="none" stroke="#1d4ed8" stroke-width="20" stroke-linecap="square"/>
+                        <!-- BOTTOM BASE LINE ACCENT -->
+                        <path d="M 20 125 L 210 125" fill="none" stroke="#1e293b" stroke-width="8"/>
+                    </svg>
+                </div>
                 <div>
-                    <h1 class="text-base font-black tracking-tight text-slate-900 uppercase leading-none">Empire</h1>
-                    <p class="text-[9px] uppercase tracking-widest text-slate-400 font-extrabold mt-1">Canopy • Sign • Construction</p>
+                    <h1 class="text-lg font-black tracking-tight text-slate-900 uppercase leading-none">Empire</h1>
+                    <p class="text-[9px] uppercase tracking-widest text-slate-500 font-extrabold mt-1">Canopy &bull; Sign &bull; Construction</p>
                 </div>
             </div>
-            <div class="text-right flex flex-col items-end">
-                <span class="bg-slate-900 text-white text-[10px] px-3 py-1 rounded-md font-bold uppercase tracking-wider shadow-sm">
-                    Sign Survey Utility
+            <div class="text-right">
+                <span class="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-bold border border-blue-200 uppercase tracking-wider">
+                    Field Survey Module
                 </span>
-                <span id="stepCount" class="text-[10px] text-slate-400 font-mono mt-1 font-bold">Step 1 of 3</span>
+                <p id="step-tracker" class="text-[10px] text-slate-400 font-mono mt-1.5 font-bold">Step 1 of 3</p>
             </div>
         </header>
 
-        <!-- TWO-COLUMN WORKSPACE CONTAINER -->
-        <main class="flex-1 lg:flex max-w-7xl w-full mx-auto p-4 lg:p-8 gap-8 items-start mb-24">
+        <!-- MAIN BALANCED DATA CAPTURE WORKSPACE -->
+        <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-24">
             
-            <!-- LEFT COLUMN: VISUAL SCHEMATIC CARD -->
-            <section class="w-full lg:w-5/12 mb-6 lg:mb-0">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs sticky top-[90px] flex flex-col items-center min-h-[380px] justify-center">
-                    <span class="text-[11px] font-extrabold tracking-widest text-slate-400 uppercase mb-6 block text-center" id="diagramTitle">
-                        INTERACTIVE CABINET BLUEPRINT
-                    </span>
-                    
-                    <!-- DIAGRAM VIEWER 1: CABINET GRID -->
-                    <div id="canvas-matrix" class="w-full flex justify-center items-center py-2">
-                        <div class="flex items-center gap-4 w-full justify-center">
-                            <!-- Dynamic Visual Stack Container -->
-                            <div id="visual-stack-container" class="flex flex-col-reverse gap-0 border-x border-b border-dashed border-slate-300 p-2 w-48 bg-slate-50/50 rounded-b-lg">
-                                <!-- Generated elements live here dynamically -->
-                            </div>
-                            <!-- Dimension Arrow Element -->
-                            <div class="flex flex-col justify-between h-48 text-slate-400 font-mono text-xs">
-                                <span class="material-icons text-sm leading-none">arrow_upward</span>
-                                <div class="w-[1px] h-full bg-slate-200 mx-auto"></div>
-                                <span class="material-icons text-sm leading-none">arrow_downward</span>
-                            </div>
+            <!-- LEFT WORKSPACE VIEWPORT: STRUCTURAL REALISTIC BLUEPRINT CARD -->
+            <section class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-xs sticky top-[100px]">
+                <h3 id="blueprint-title" class="text-[11px] font-black tracking-widest text-slate-400 uppercase mb-6 text-center">
+                    REALISTIC CABINET DESIGN MATRIX
+                </h3>
+                
+                <!-- PREVIEW 1: SIGN CABINET INTERACTIVE GRID MAPPING -->
+                <div id="viewport-matrix" class="w-full flex justify-center items-center py-4">
+                    <div class="flex items-center gap-6 w-full max-w-xs">
+                        <div id="blueprint-stack-output" class="flex flex-col-reverse gap-2 flex-1">
+                            <!-- Dynamic Layer Stack Box Components Generated via Engine -->
+                        </div>
+                        <div class="flex flex-col justify-between h-48 text-slate-400 font-mono text-xs">
+                            <span class="material-icons text-sm leading-none">arrow_upward</span>
+                            <div class="w-[1px] h-full bg-slate-200 mx-auto"></div>
+                            <span class="material-icons text-sm leading-none">arrow_downward</span>
                         </div>
                     </div>
+                </div>
 
-                    <!-- DIAGRAM VIEWER 2: ELEVATIONS -->
-                    <div id="canvas-elevation" class="w-full hidden py-2 flex justify-center">
-                        <svg width="240" height="200" viewBox="0 0 240 200" class="overflow-visible">
-                            <rect x="65" y="45" width="100" height="40" rx="4" fill="#f1f5f9" stroke="#1e293b" stroke-width="2"/>
-                            <!-- Divider line inside cabinet graphic mimicking reality -->
-                            <line x1="65" y1="65" x2="165" y2="65" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" />
-                            <rect x="110" y="85" width="16" height="65" fill="#334155"/>
-                            <line x1="20" y1="150" x2="220" y2="150" stroke="#0f172a" stroke-width="3"/>
-                            <text x="190" y="168" class="fill-slate-400 text-[9px] font-black tracking-wider uppercase">GRADE</text>
+                <!-- PREVIEW 2: STRUCTURAL OFFSETS & FIELD ELEVATIONS -->
+                <div id="viewport-elevation" class="w-full hidden py-2 flex justify-center">
+                    <svg width="280" height="240" viewBox="0 0 280 240" class="overflow-visible">
+                        <!-- Grade Base Floor -->
+                        <line x1="10" y1="200" x2="270" y2="200" stroke="#0f172a" stroke-width="3"/>
+                        <text x="235" y="218" class="fill-slate-400 text-[10px] font-black tracking-wider uppercase">GRADE</text>
+                        <!-- Ground Support Dual Columns -->
+                        <rect x="90" y="80" width="14" height="120" fill="#475569"/>
+                        <rect x="160" y="80" width="14" height="120" fill="#475569"/>
+                        <!-- Sign Cabinet Profile Box Overlay -->
+                        <rect x="70" y="30" width="120" height="50" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+                        <text x="130" y="60" text-anchor="middle" class="fill-white font-bold text-xs">SIGN</text>
 
-                            <!-- Dimension Lines (Overall Height) -->
-                            <g fill="none" stroke="#2563eb" stroke-width="1.5">
-                                <path d="M 45 45 L 45 150"/>
-                                <path d="M 41 52 L 45 45 L 49 52"/>
-                                <path d="M 41 143 L 45 150 L 49 143"/>
-                            </g>
-                            <text x="35" y="95" text-anchor="middle" transform="rotate(-90 35,95)" class="fill-blue-600 font-mono text-[9px] font-black uppercase tracking-wider">OVERALL HT</text>
+                        <!-- Measurement Vector Lines (Overall Height Layout) -->
+                        <g fill="none" stroke="#2563eb" stroke-width="1.5">
+                            <path d="M 40 30 L 40 200"/>
+                            <path d="M 36 38 L 40 30 L 44 38"/>
+                            <path d="M 36 192 L 40 200 L 44 192"/>
+                        </g>
+                        <text x="28" y="115" text-anchor="middle" transform="rotate(-90 28,115)" class="fill-blue-600 font-mono text-[9px] font-black uppercase tracking-wider">OVERALL HT</text>
 
-                            <!-- Dimension Lines (Clearance) -->
-                            <g fill="none" stroke="#16a34a" stroke-width="1.5">
-                                <path d="M 185 85 L 185 150"/>
-                                <path d="M 181 92 L 185 85 L 189 92"/>
-                                <path d="M 181 143 L 185 150 L 189 143"/>
-                            </g>
-                            <text x="195" y="115" text-anchor="middle" transform="rotate(90 195,115)" class="fill-green-600 font-mono text-[9px] font-black uppercase tracking-wider">CLEARANCE</text>
-                        </svg>
-                    </div>
+                        <!-- Measurement Vector Lines (Clearance Line) -->
+                        <g fill="none" stroke="#16a34a" stroke-width="1.5">
+                            <path d="M 215 80 L 215 200"/>
+                            <path d="M 211 88 L 215 80 L 219 88"/>
+                            <path d="M 211 192 L 215 200 L 219 192"/>
+                        </g>
+                        <text x="226" y="140" text-anchor="middle" transform="rotate(90 226,140)" class="fill-green-600 font-mono text-[9px] font-black uppercase tracking-wider">CLEARANCE</text>
+                    </svg>
+                </div>
 
-                    <!-- DIAGRAM VIEWER 3: BASEPLATE -->
-                    <div id="canvas-baseplate" class="w-full hidden py-4 flex justify-center">
-                        <svg width="180" height="180" viewBox="0 0 180 180" class="overflow-visible">
-                            <rect x="25" y="25" width="130" height="130" rx="8" fill="#ffffff" stroke="#334155" stroke-width="2.5"/>
-                            <circle cx="90" cy="90" r="28" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
-                            
-                            <!-- 4 Bolts Layout -->
-                            <g id="g-bolts4">
-                                <circle cx="50" cy="50" r="7" fill="#475569"/>
-                                <circle cx="130" cy="50" r="7" fill="#475569"/>
-                                <circle cx="50" cy="130" r="7" fill="#475569"/>
-                                <circle cx="130" cy="130" r="7" fill="#475569"/>
-                            </g>
-                            <!-- 6 Bolts Layout Additional Pins -->
-                            <g id="g-bolts6" class="hidden">
-                                <circle cx="50" cy="90" r="7" fill="#2563eb"/>
-                                <circle cx="130" cy="90" r="7" fill="#2563eb"/>
-                            </g>
-                        </svg>
-                    </div>
+                <!-- PREVIEW 3: ANCHOR PLATFORMS & BOLTS PROFILE -->
+                <div id="viewport-baseplate" class="w-full hidden py-6 flex justify-center">
+                    <svg width="200" height="200" viewBox="0 0 200 200" class="overflow-visible">
+                        <!-- Structural Plate Outer Boundary -->
+                        <rect x="25" y="25" width="150" height="150" rx="6" fill="#f8fafc" stroke="#334155" stroke-width="3"/>
+                        <!-- Support Post Core Section Column Profile -->
+                        <circle cx="100" cy="100" r="32" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+                        
+                        <!-- 4 Corner Structural Fasteners -->
+                        <g id="svg-bolts-4" fill="#475569">
+                            <circle cx="55" cy="55" r="8"/>
+                            <circle cx="145" cy="55" r="8"/>
+                            <circle cx="55" cy="145" r="8"/>
+                            <circle cx="145" cy="145" r="8"/>
+                        </g>
+                        <!-- 6 Heavy-Duty Middle Fasteners -->
+                        <g id="svg-bolts-6" fill="#dd6b20" class="hidden">
+                            <circle cx="55" cy="100" r="8"/>
+                            <circle cx="145" cy="100" r="8"/>
+                        </g>
+                    </svg>
                 </div>
             </section>
 
-            <!-- RIGHT COLUMN: MASTER INPUT PANEL MODULES -->
-            <section class="flex-1 max-w-xl">
+            <!-- RIGHT WORKSPACE VIEWPORT: MULTI-STEP SURVEY INPUT PLATFORM -->
+            <section class="lg:col-span-7">
                 
+                <!-- MODULE PANEL STEP 1: CABINET COMPONENT DIMENSION SYSTEM -->
+                <div id="step-panel-1" class="step-panel active space-y-6">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
+                            <h2 class="text-sm font-black text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                                <span class="material-icons text-blue-600">view_day</span> Sign Cabinet Configurations [Page 1]
+                            </h2>
+                            <div class="flex gap-2">
+                                <button type="button" onclick="popCabinetStack()" class="px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl text-xs font-bold transition-all flex items-center gap-1">
+                                    <span class="material-icons text-sm">remove</span> Remove Layer
+                                </button>
+                                <button type="button" onclick="pushCabinetStack()" class="px-3 py-1.5 bg-blue-600 text-white hover:bg-blue-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1 shadow-xs">
+                                    <span class="material-icons text-sm">add</span> Add Cabinet
+                                </button>
