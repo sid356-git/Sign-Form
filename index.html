@@ -15,9 +15,9 @@
         body { font-family: 'Inter', sans-serif; }
         .step-panel { display: none; }
         .step-panel.active { display: block; }
-        .app-logo { object-fit: contain; }
-    </style>
-</head>
+        .app-logo { object-fit: contain; }	
+        .app-logo { object-fit: contain; }.panel-fade { animation: fadeIn 0.2s ease-in-out; }.field-note { font-size: 10px; color: #64748b; margin-top: 4px; }.input-error { border-color: #dc2626 !important; background-color: #fef2f2; }.crew-badge { background: linear-gradient(135deg,#eff6ff,#f8fafc); }.mobile-card-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0.75rem; }.mobile-two-col { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }.diagram-shell { width: 100%; overflow-x: auto; padding-bottom: 0.25rem; }.sticky-safe { position: sticky; top: 90px; } @media (max-width: 1024px) { .sticky-safe { position: static; top: auto; } } @media (max-width: 640px) { .mobile-card-grid { grid-template-columns: 1fr; } .mobile-two-col { grid-template-columns: 1fr; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } } </style>
 <body class="bg-[#f8fafc] text-slate-900 min-h-screen flex flex-col antialiased">
 
     <div id="passwordGate" class="fixed inset-0 bg-slate-900 z-50 flex items-center justify-center p-4">
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <h2 class="text-xl font-bold text-slate-900 mb-2">Crew Portal Authentication</h2>
-            <p class="text-sm text-slate-500 mb-6">Please enter your internal crew credentials to access interactive field blueprints.</p>
+            <p class="text-sm text-slate-500 mb-6">Enter the authorized crew passcode to open the sign survey workspace and prepare a field-ready export.</p>
             <input type="password" id="crewPassword" placeholder="Enter Crew Passcode" onkeydown="if(event.key === 'Enter') verifyAccess()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-center text-lg font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 tracking-widest mb-4 text-slate-900">
             <button type="button" onclick="verifyAccess()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl shadow-lg transition-all text-sm tracking-wide">Authenticate Unit</button>
             <p id="gateError" class="text-red-600 text-xs mt-3 hidden flex items-center justify-center gap-1 font-medium">
@@ -60,73 +60,31 @@
         <main class="flex-1 lg:flex max-w-7xl w-full mx-auto p-4 lg:p-8 gap-8 items-start mb-20">
             
             <section class="w-full lg:w-5/12 mb-6 lg:mb-0">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs sticky top-[90px] flex flex-col items-center min-h-[380px] justify-center">
+                <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-xs sticky-safe flex flex-col items-center min-h-[320px] lg:min-h-[380px] justify-center">
                     <span class="text-[11px] font-extrabold tracking-widest text-slate-400 uppercase mb-6 block text-center" id="diagramTitle">
-                        INTERACTIVE CABINET BLUEPRINT
+                        PAPER FORM MATCHED CABINET LAYOUT
                     </span>
                     
-                    <div id="canvas-matrix" class="w-full flex justify-center items-center py-2">
-                        <div class="flex items-center gap-4">
-                            <div id="visual-stack-container" class="flex flex-col-reverse gap-2 w-36">
-                                </div>
-                            <div class="flex flex-col justify-between h-56 text-slate-400 font-mono text-xs">
-                                <span class="material-icons text-sm leading-none">arrow_upward</span>
-                                <div class="w-[1px] h-full bg-slate-200 mx-auto"></div>
-                                <span class="material-icons text-sm leading-none">arrow_downward</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="canvas-matrix" class="diagram-shell w-full flex justify-center items-center py-2">
+                        <div class="min-w-[260px] w-full max-w-[320px] border border-slate-200 rounded-2xl p-4 bg-slate-50"><div class="flex items-center justify-between mb-3"><p class="text-[10px] font-black uppercase tracking-widest text-slate-500">Cabinet Stack Reference</p><span class="text-[10px] font-mono text-slate-400">Top to Bottom</span></div><div class="flex items-start gap-3"><div id="visual-stack-container" class="flex-1 flex flex-col-reverse gap-2"></div><div class="flex flex-col items-center gap-1 text-slate-400 font-mono text-[10px]"><span class="material-icons text-sm leading-none">north</span><div class="h-56 w-[2px] bg-slate-200 rounded-full"></div><span class="material-icons text-sm leading-none">south</span></div></div><div class="mt-3 grid grid-cols-3 gap-2 text-[10px] text-slate-500 font-semibold uppercase tracking-wide"><div class="rounded-lg bg-white border border-slate-200 px-2 py-1 text-center">Retainer</div><div class="rounded-lg bg-white border border-slate-200 px-2 py-1 text-center">Depth</div><div class="rounded-lg bg-white border border-slate-200 px-2 py-1 text-center">Divider Bar</div></div></div>
 
-                    <div id="canvas-elevation" class="w-full hidden py-2 flex justify-center">
-                        <svg width="240" height="200" viewBox="0 0 240 200" class="overflow-visible">
-                            <rect x="65" y="20" width="100" height="45" rx="4" fill="none" stroke="#1e293b" stroke-width="2"/>
-                            <rect x="85" y="65" width="12" height="85" fill="#334155"/>
-                            <rect x="133" y="65" width="12" height="85" fill="#334155"/>
-                            <line x1="20" y1="150" x2="220" y2="150" stroke="#0f172a" stroke-width="3"/>
-                            <text x="190" y="168" class="fill-slate-400 text-[9px] font-black tracking-wider uppercase">GRADE</text>
+                    <div id="canvas-elevation" class="diagram-shell w-full hidden py-2 flex justify-center">
+                        <svg width="300" height="220" viewBox="0 0 300 220" class="overflow-visible min-w-[260px]"><rect x="92" y="28" width="116" height="44" rx="4" fill="#ffffff" stroke="#0f172a" stroke-width="2"/><text x="150" y="22" text-anchor="middle" class="fill-slate-500 text-[10px] font-black uppercase tracking-wider">Sign Cabinet</text><rect x="112" y="72" width="14" height="98" fill="#334155"/><rect x="174" y="72" width="14" height="98" fill="#334155"/><line x1="30" y1="170" x2="270" y2="170" stroke="#0f172a" stroke-width="3"/><text x="252" y="186" class="fill-slate-400 text-[10px] font-black tracking-wider uppercase">GRADE</text><g fill="none" stroke="#2563eb" stroke-width="1.5"><path d="M 58 30 L 58 170"/><path d="M 54 37 L 58 30 L 62 37"/><path d="M 54 163 L 58 170 L 62 163"/></g><text x="47" y="102" text-anchor="middle" transform="rotate(-90 47,102)" class="fill-blue-600 font-mono text-[10px] font-black uppercase tracking-wider">Overall Height</text><g fill="none" stroke="#16a34a" stroke-width="1.5"><path d="M 238 72 L 238 170"/><path d="M 234 79 L 238 72 L 242 79"/><path d="M 234 163 L 238 170 L 242 163"/></g><text x="249" y="122" text-anchor="middle" transform="rotate(90 249,122)" class="fill-green-600 font-mono text-[10px] font-black uppercase tracking-wider">Bottom of Cabinet to Ground</text><g fill="none" stroke="#7c3aed" stroke-width="1.5"><path d="M 112 198 L 188 198"/><path d="M 119 194 L 112 198 L 119 202"/><path d="M 181 194 L 188 198 L 181 202"/></g><text x="150" y="214" text-anchor="middle" class="fill-violet-600 font-mono text-[10px] font-black uppercase tracking-wider">Center to Center Distance Between Poles</text></svg>
 
-                            <g fill="none" stroke="#2563eb" stroke-width="1.5">
-                                <path d="M 45 25 L 45 150"/>
-                                <path d="M 41 32 L 45 25 L 49 32"/>
-                                <path d="M 41 143 L 45 150 L 49 143"/>
-                            </g>
-                            <text x="35" y="88" text-anchor="middle" transform="rotate(-90 35,88)" class="fill-blue-600 font-mono text-[9px] font-black uppercase tracking-wider">OVERALL HT</text>
-
-                            <g fill="none" stroke="#16a34a" stroke-width="1.5">
-                                <path d="M 185 65 L 185 150"/>
-                                <path d="M 181 72 L 185 65 L 189 72"/>
-                                <path d="M 181 143 L 185 150 L 189 143"/>
-                            </g>
-                            <text x="195" y="108" text-anchor="middle" transform="rotate(90 195,108)" class="fill-green-600 font-mono text-[9px] font-black uppercase tracking-wider">CLEARANCE</text>
-                        </svg>
-                    </div>
-
-                    <div id="canvas-baseplate" class="w-full hidden py-4 flex justify-center">
-                        <svg width="180" height="180" viewBox="0 0 180 180" class="overflow-visible">
-                            <rect x="25" y="25" width="130" height="130" rx="8" fill="#ffffff" stroke="#334155" stroke-width="2.5"/>
-                            <circle cx="90" cy="90" r="24" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
-                            <g id="g-bolts4">
-                                <circle cx="50" cy="50" r="7" fill="#475569"/>
-                                <circle cx="130" cy="50" r="7" fill="#475569"/>
-                                <circle cx="50" cy="130" r="7" fill="#475569"/>
-                                <circle cx="130" cy="130" r="7" fill="#475569"/>
-                            </g>
-                            <g id="g-bolts6" class="hidden">
-                                <circle cx="50" cy="90" r="7" fill="#2563eb"/>
-                                <circle cx="130" cy="90" r="7" fill="#2563eb"/>
-                            </g>
-                        </svg>
-                    </div>
+                    <div id="canvas-baseplate" class="diagram-shell w-full hidden py-4 flex justify-center">
+                        <svg width="260" height="220" viewBox="0 0 260 220" class="overflow-visible min-w-[240px]"><rect x="60" y="40" width="140" height="140" rx="8" fill="#ffffff" stroke="#334155" stroke-width="2.5"/><text x="130" y="24" text-anchor="middle" class="fill-slate-500 text-[10px] font-black uppercase tracking-wider">Base Plate Reference</text><circle cx="130" cy="110" r="24" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/><g id="g-bolts4"><circle cx="84" cy="64" r="7" fill="#475569"/><circle cx="176" cy="64" r="7" fill="#475569"/><circle cx="84" cy="156" r="7" fill="#475569"/><circle cx="176" cy="156" r="7" fill="#475569"/></g><g id="g-bolts6" class="hidden"><circle cx="84" cy="110" r="7" fill="#2563eb"/><circle cx="176" cy="110" r="7" fill="#2563eb"/></g><g fill="none" stroke="#2563eb" stroke-width="1.5"><path d="M 60 194 L 200 194"/><path d="M 67 190 L 60 194 L 67 198"/><path d="M 193 190 L 200 194 L 193 198"/></g><text x="130" y="210" text-anchor="middle" class="fill-blue-600 font-mono text-[10px] font-black uppercase tracking-wider">Plate Width</text><g fill="none" stroke="#7c3aed" stroke-width="1.5"><path d="M 84 26 L 176 26"/><path d="M 91 22 L 84 26 L 91 30"/><path d="M 169 22 L 176 26 L 169 30"/></g><text x="130" y="16" text-anchor="middle" class="fill-violet-600 font-mono text-[10px] font-black uppercase tracking-wider">Bolt Spacing</text></svg>
                 </div>
             </section>
 
-            <section class="flex-1 max-w-xl">
+            <section class="flex-1 w-full max-w-2xl">
                 
+                <div class="crew-badge border border-slate-200 rounded-2xl p-4 mb-6 shadow-xs panel-fade"><div class="flex items-center justify-between gap-4"><div><p class="text-[10px] uppercase tracking-[0.2em] font-black text-blue-700">Crew Workspace</p><h3 class="text-sm font-bold text-slate-900 mt-1">Field Sign Survey Session</h3><p class="text-xs text-slate-500 mt-1">Capture cabinet, elevation, and anchor data before exporting the final report.</p></div><div class="text-right"><p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Status</p><p id="crewSessionStatus" class="text-sm font-bold text-emerald-600">Ready for Input</p></div></div></div>
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6"><p class="text-[10px] uppercase tracking-[0.2em] font-black text-amber-700">Why this survey matters</p><p class="text-xs text-slate-700 mt-2 leading-5">This digital form is built to match the paper survey sheet the crew already uses in the field. The result is a clean report with the same detailing for cabinet sections, curb offsets, elevation measurements, and base plate information so the crew can easily see, mark, review, and hand off the information without missing critical dimensions.</p></div>
                 <div id="step1" class="step-panel active space-y-6">
                     <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
                         <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-5">
                             <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
-                                <span class="material-icons text-blue-600 text-lg">view_week</span> Sign Cabinet Dimensions
+                                <span class="material-icons text-blue-600 text-lg">view_week</span> Cabinet Survey Details
                             </h3>
                             <div class="flex gap-2">
                                 <button type="button" onclick="removeCabinetModule()" class="p-1.5 bg-slate-100 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer">
@@ -137,6 +95,7 @@
                                 </button>
                             </div>
                         </div>
+                        <p class="field-note">Enter each cabinet section exactly as shown on the survey sheet: Retainer, Depth, and Divider Bar for every module from top to bottom.</p>
                         
                         <div id="dynamic-input-container" class="space-y-5">
                             </div>
@@ -146,17 +105,17 @@
                 <div id="step2" class="step-panel space-y-6">
                     <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-5">
                         <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-                            <span class="material-icons text-green-600 text-lg">layers</span> Structural Elevations & Offsets
+                            <span class="material-icons text-green-600 text-lg">layers</span> Pole Sign / Street Sign Survey Info
                         </h3>
                         
                         <div class="space-y-4">
                             <span class="text-[10px] font-black text-blue-600 block tracking-widest uppercase">CURB LINE OFFSETS</span>
                             <div>
-                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Distance North-to-South Line (To Curb)</label>
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Feet from Leading Edge of Sign to Curb (North to South)</label>
                                 <input type="text" id="curbNS" placeholder="Enter measurement" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Distance East-to-West Line (To Curb)</label>
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Feet from Leading Edge of Sign to Curb (East to West)</label>
                                 <input type="text" id="curbEW" placeholder="Enter measurement" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
@@ -164,15 +123,15 @@
                         <div class="space-y-4 pt-2">
                             <span class="text-[10px] font-black text-blue-600 block tracking-widest uppercase">HEIGHT & PLACEMENT PROFILES</span>
                             <div>
-                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Overall Structural Height (Top of Sign to Grade)</label>
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Overall Height - Top of Sign to Ground</label>
                                 <input type="text" id="hOverall" placeholder="Enter height" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Roadway Clearance (Bottom of Cabinet to Grade)</label>
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Bottom of Sign Cabinet to Ground</label>
                                 <input type="text" id="hClearance" placeholder="Enter clearance" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Center-to-Center Support Pole Interval</label>
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Center to Center Distance Between Poles</label>
                                 <input type="text" id="pCenter" placeholder="Enter interval" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
@@ -182,7 +141,7 @@
                 <div id="step3" class="step-panel space-y-6">
                     <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-5">
                         <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-                            <span class="material-icons text-amber-600 text-lg">grid_view</span> Anchor Plates & Fasteners
+                            <span class="material-icons text-amber-600 text-lg">grid_view</span> Base Plate Details
                         </h3>
 
                         <div class="grid grid-cols-2 p-1 bg-slate-100 border border-slate-200 rounded-xl text-center text-xs font-bold">
@@ -190,9 +149,9 @@
                             <button type="button" onclick="toggleStructuralPattern(6)" id="tab6" class="py-2 rounded-lg transition-all text-slate-500 hover:text-slate-800 cursor-pointer">6-Bolt System</button>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="mobile-two-col">
                             <div class="bg-white p-4 border border-slate-200 rounded-xl">
-                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Bolt Axis Diameter</label>
+                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Bolt Diameter</label>
                                 <input type="text" id="bDia" placeholder="Inches" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div class="bg-white p-4 border border-slate-200 rounded-xl">
@@ -200,11 +159,11 @@
                                 <input type="text" id="bThick" placeholder="Inches" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div class="bg-white p-4 border border-slate-200 rounded-xl col-span-2">
-                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Plate Perimeter Width Dimension</label>
+                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Plate Width</label>
                                 <input type="text" id="bWidth" placeholder="Width profile sizing" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div class="bg-white p-4 border border-slate-200 rounded-xl col-span-2">
-                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Linear Bolt Anchor Center Spacing</label>
+                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Bolt Spacing</label>
                                 <input type="text" id="bSpacing" placeholder="Spacing interval dimensions" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
@@ -215,10 +174,11 @@
         </main>
 
         <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 shadow-md z-40">
-            <div class="max-w-md mx-auto flex justify-between items-center gap-3 px-4">
+            <div class="max-w-3xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 px-4">
                 <button type="button" id="btnBack" onclick="navigateWizardStep(-1)" class="flex-1 py-3 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-xs border border-slate-200 transition-all flex items-center justify-center gap-1 opacity-40 pointer-events-none cursor-pointer">
                     <span class="material-icons text-sm">arrow_back</span> Back
                 </button>
+                <p id="validationBanner" class="hidden flex-1 w-full text-[11px] text-red-600 font-semibold px-2 text-center sm:text-left">Please complete the required survey fields before exporting.</p>
                 <button type="button" id="btnNext" onclick="navigateWizardStep(1)" class="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-xs transition-all flex items-center justify-center gap-1 cursor-pointer">
                     Next Step <span class="material-icons text-sm">arrow_forward</span>
                 </button>
@@ -239,20 +199,21 @@
                             </div>
                         </div>
                         <div class="text-right font-mono text-[9px]">
-                            <p class="font-black text-slate-900 text-xs tracking-wide">FIELD ENGINEERING SIGN REPORT</p>
+                            <p class="font-black text-slate-900 text-xs tracking-wide">CST GROUND SIGN SURVEY REPORT</p>
                             <p class="text-slate-400 mt-0.5">Log Date: <span id="pdfPrintDate"></span></p>
                         </div>
                     </div>
+                    <div class="grid grid-cols-2 gap-3 text-[10px]"><div class="border border-slate-200 rounded-lg p-3 bg-slate-50"><p class="font-black uppercase tracking-wider text-slate-500 mb-1">Field Purpose</p><p class="text-slate-700 leading-4">Document cabinet sections, curb offsets, pole elevations, and base plate details in the same sequence used on the physical survey form.</p></div><div class="border border-slate-200 rounded-lg p-3 bg-slate-50"><p class="font-black uppercase tracking-wider text-slate-500 mb-1">Crew Use</p><p class="text-slate-700 leading-4">Use this report for field review, markups, and handoff so crews can quickly identify each measured area without re-reading raw notes.</p></div></div>
 
                     <div>
-                        <h3 class="font-bold border-b border-slate-900 mb-2 uppercase text-slate-900 text-[10px] tracking-wider">1.0 CABINET PROFILE DIMENSIONS</h3>
+                        <h3 class="font-bold border-b border-slate-900 mb-2 uppercase text-slate-900 text-[10px] tracking-wider">1.0 Cabinet Sections</h3>
                         <table class="w-full text-left border border-slate-200 text-[11px]">
                             <thead>
                                 <tr class="bg-slate-50 font-bold text-slate-600 border-b border-slate-200">
-                                    <th class="p-2 border-r border-slate-200">Module Section</th>
-                                    <th class="p-2 border-r border-slate-200">Retainer Size</th>
-                                    <th class="p-2 border-r border-slate-200">Depth Dimension</th>
-                                    <th class="p-2">Divider Sizing</th>
+                                    <th class="p-2 border-r border-slate-200">Section</th>
+                                    <th class="p-2 border-r border-slate-200">Retainer</th>
+                                    <th class="p-2 border-r border-slate-200">Depth</th>
+                                    <th class="p-2">Divider Bar</th>
                                 </tr>
                             </thead>
                             <tbody id="pdf-table-body" class="divide-y divide-slate-200">
@@ -262,30 +223,30 @@
 
                     <div class="grid grid-cols-2 gap-4">
                         <div class="border border-slate-200 p-3 rounded-lg bg-white">
-                            <h3 class="font-black border-b border-slate-200 mb-2 uppercase text-slate-900 text-[9px] tracking-wider pb-1">2.0 PROPERTY EDGE OFFSETS</h3>
+                            <h3 class="font-black border-b border-slate-200 mb-2 uppercase text-slate-900 text-[9px] tracking-wider pb-1">2.0 Fixed Dimensions from Edge of Sign to Street or Driveway Curb</h3>
                             <div class="space-y-1.5 text-[11px]">
-                                <p><span class="text-slate-800 font-bold">North-South Line to Curb:</span> <span id="p-ns" class="font-mono text-slate-900 font-medium">-</span></p>
-                                <p><span class="text-slate-800 font-bold">East-West Line to Curb:</span> <span id="p-ew" class="font-mono text-slate-900 font-medium">-</span></p>
+                                <p><span class="text-slate-800 font-bold">North to South:</span> <span id="p-ns" class="font-mono text-slate-900 font-medium">-</span></p>
+                                <p><span class="text-slate-800 font-bold">East to West:</span> <span id="p-ew" class="font-mono text-slate-900 font-medium">-</span></p>
                             </div>
                         </div>
                         <div class="border border-slate-200 p-3 rounded-lg bg-white">
-                            <h3 class="font-black border-b border-slate-200 mb-2 uppercase text-slate-900 text-[9px] tracking-wider pb-1">3.0 STRUCTURAL TOLERANCES</h3>
+                            <h3 class="font-black border-b border-slate-200 mb-2 uppercase text-slate-900 text-[9px] tracking-wider pb-1">3.0 Pole Sign / Street Sign Survey Info</h3>
                             <div class="space-y-1.5 text-[11px]">
-                                <p><span class="text-slate-800 font-bold">Overall Height Vector:</span> <span id="p-oh" class="font-mono text-slate-900 font-medium">-</span></p>
-                                <p><span class="text-slate-800 font-bold">Clearance Height Matrix:</span> <span id="p-hc" class="font-mono text-slate-900 font-medium">-</span></p>
-                                <p><span class="text-slate-800 font-bold">Support Pole Center Line:</span> <span id="p-pc" class="font-mono text-slate-900 font-medium">-</span></p>
+                                <p><span class="text-slate-800 font-bold">Overall Height:</span> <span id="p-oh" class="font-mono text-slate-900 font-medium">-</span></p>
+                                <p><span class="text-slate-800 font-bold">Bottom of Sign Cabinet to Ground:</span> <span id="p-hc" class="font-mono text-slate-900 font-medium">-</span></p>
+                                <p><span class="text-slate-800 font-bold">Center to Center Distance Between Poles:</span> <span id="p-pc" class="font-mono text-slate-900 font-medium">-</span></p>
                             </div>
                         </div>
                     </div>
 
                     <div class="border border-slate-200 p-3 rounded-lg bg-white">
-                        <h3 class="font-black border-b border-slate-200 mb-2 uppercase text-slate-900 text-[9px] tracking-wider pb-1">4.0 FOUNDATION BASE HARDWARE PROFILES</h3>
+                        <h3 class="font-black border-b border-slate-200 mb-2 uppercase text-slate-900 text-[9px] tracking-wider pb-1">4.0 Base Plate Details</h3>
                         <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-[11px]">
-                            <p><span class="text-slate-800 font-bold">System Configuration:</span> <span id="p-pattern" class="font-mono text-slate-900 font-medium">-</span></p>
-                            <p><span class="text-slate-800 font-bold">Bolt Thread Diameter:</span> <span id="p-dia" class="font-mono text-slate-900 font-medium">-</span></p>
+                            <p><span class="text-slate-800 font-bold">Bolt Pattern:</span> <span id="p-pattern" class="font-mono text-slate-900 font-medium">-</span></p>
+                            <p><span class="text-slate-800 font-bold">Bolt Diameter:</span> <span id="p-dia" class="font-mono text-slate-900 font-medium">-</span></p>
                             <p><span class="text-slate-800 font-bold">Base Plate Thickness:</span> <span id="p-thick" class="font-mono text-slate-900 font-medium">-</span></p>
-                            <p><span class="text-slate-800 font-bold">Base Plate Width Dimension:</span> <span id="p-wp" class="font-mono text-slate-900 font-medium">-</span></p>
-                            <p class="col-span-2"><span class="text-slate-800 font-bold">Bolt Center Spacing Axis:</span> <span id="p-space" class="font-mono text-slate-900 font-medium">-</span></p>
+                            <p><span class="text-slate-800 font-bold">Plate Width:</span> <span id="p-wp" class="font-mono text-slate-900 font-medium">-</span></p>
+                            <p class="col-span-2"><span class="text-slate-800 font-bold">Bolt Spacing:</span> <span id="p-space" class="font-mono text-slate-900 font-medium">-</span></p>
                         </div>
                     </div>
                 </div>
@@ -307,15 +268,15 @@
 
         // 1. Passcode Verification 
         function verifyAccess() {
-            const keyInput = document.getElementById('crewPassword').value.trim().toUpperCase();
+            const keyField = document.getElementById('crewPassword'); const keyInput = keyField.value.trim().toUpperCase(); const gateError = document.getElementById('gateError'); gateError.classList.add('hidden');
             if (keyInput === SECURE_CREW_KEY) {
-                document.getElementById('passwordGate').style.display = 'none';
-                document.getElementById('appInterface').classList.remove('hidden');
+                document.getElementById('passwordGate').style.display = 'none'; document.getElementById('appInterface').classList.remove('hidden'); const statusNode = document.getElementById('crewSessionStatus'); if (statusNode) statusNode.textContent = 'Authenticated'; window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                document.getElementById('gateError').classList.remove('hidden');
+                gateError.classList.remove('hidden'); keyField.value = ''; keyField.focus();
             }
         }
 
+        function sanitizeFieldValue(value) { return (value || '').toString().replace(/[<>]/g, '').trim(); }
         // 2. Dynamic Modules Logic
         function addCabinetModule() {
             if (totalCabinetModulesCount >= 4) return;
@@ -327,13 +288,13 @@
             // Generate Input UI
             const cardMarkup = document.createElement('div');
             cardMarkup.id = `input-card-${totalCabinetModulesCount}`;
-            cardMarkup.className = "p-5 bg-white border border-slate-200 rounded-xl relative transition-all";
+            cardMarkup.className = "p-5 bg-white border border-slate-200 rounded-xl relative transition-all panel-fade";
             cardMarkup.innerHTML = `
                 <div class="text-[10px] font-black text-slate-400 mb-4 tracking-widest uppercase flex justify-between items-center">
-                    <span>CABINET MODULE 0${totalCabinetModulesCount}</span>
+                    <span>SECTION 0${totalCabinetModulesCount}</span>
                     <span class="w-2 h-2 rounded-full bg-blue-600"></span>
                 </div>
-                <div class="grid grid-cols-3 gap-3">
+                <div class="mobile-card-grid">
                     <div>
                         <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">RETAINER</label>
                         <input type="text" id="r${totalCabinetModulesCount}" placeholder="Inches" oninput="liveSyncVisualization(${totalCabinetModulesCount})" class="w-full bg-white border border-slate-200 text-xs rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
@@ -353,10 +314,10 @@
             // Generate Left Diagram Block
             const visualMarkup = document.createElement('div');
             visualMarkup.id = `visual-block-${totalCabinetModulesCount}`;
-            visualMarkup.className = "border-2 border-blue-600 bg-white rounded-lg p-2.5 text-center shadow-xs transition-all";
+            visualMarkup.className = "border-2 border-blue-600 bg-white rounded-xl p-3 text-center shadow-xs transition-all";
             visualMarkup.innerHTML = `
-                <p class="text-[11px] font-bold text-slate-800">Module #${totalCabinetModulesCount}</p>
-                <p id="lbl-m${totalCabinetModulesCount}" class="text-[9px] font-mono font-bold text-blue-600 mt-0.5">--</p>
+                <p class="text-[11px] font-black text-slate-800 uppercase tracking-wide">Section #${totalCabinetModulesCount}</p>
+                <p id="lbl-m${totalCabinetModulesCount}" class="text-[9px] font-mono font-bold text-blue-600 mt-1 leading-4">R -- | D -- | Divider --</p>
             `;
             visualContainer.appendChild(visualMarkup);
         }
@@ -375,7 +336,7 @@
             const rVal = document.getElementById(`r${id}`).value || '--';
             const dVal = document.getElementById(`d${id}`).value || '--';
             const labelNode = document.getElementById(`lbl-m${id}`);
-            if (labelNode) { labelNode.textContent = `${rVal} x ${dVal}`; }
+            if (labelNode) { const bVal = document.getElementById(`b${id}`).value || '--'; labelNode.textContent = `R ${rVal} | D ${dVal} | Divider ${bVal}`; }
         }
 
         // 4. Baseplate Type Logic
@@ -398,14 +359,12 @@
 
         // 5. Wizard Navigation & Submit
         function navigateWizardStep(direction) {
-            if (direction === 1 && wizardStep === 3) {
-                executeMobileSafePDFDownload();
-                return;
+            if (direction === 1 && wizardStep === 3) { const missingFields = validateRequiredSurveyFields(); if (missingFields.length) { const firstMissing = document.getElementById(missingFields[0]); if (firstMissing) firstMissing.focus(); const statusNode = document.getElementById('crewSessionStatus'); if (statusNode) statusNode.textContent = 'Missing Required Fields'; return; } executeMobileSafePDFDownload(); return; }
             }
 
             document.getElementById(`step${wizardStep}`).classList.remove('active');
             wizardStep += direction;
-            document.getElementById(`step${wizardStep}`).classList.add('active');
+            document.getElementById(`step${wizardStep}`).classList.add('active', 'panel-fade');
 
             // Toggle diagrams
             document.getElementById('canvas-matrix').classList.toggle('hidden', wizardStep !== 1);
@@ -413,9 +372,9 @@
             document.getElementById('canvas-baseplate').classList.toggle('hidden', wizardStep !== 3);
 
             // Toggle Titles
-            const headings = ["INTERACTIVE CABINET BLUEPRINT", "STRUCTURAL HEIGHT TOLERANCES", "BASE PLATE SIZING MATRIX"];
+            const headings = ['PAPER FORM MATCHED CABINET LAYOUT', 'POLE SIGN ELEVATION REFERENCE', 'BASE PLATE REFERENCE VIEW'];
             document.getElementById('diagramTitle').textContent = headings[wizardStep - 1];
-            document.getElementById('stepCount').textContent = `Step ${wizardStep} of 3`;
+            document.getElementById('stepCount').textContent = `Step ${wizardStep} of 3`; const statusNode = document.getElementById('crewSessionStatus'); if (statusNode) statusNode.textContent = wizardStep === 3 ? 'Ready to Export' : `Completing Step ${wizardStep}`;
 
             // Update footer buttons
             document.getElementById('btnBack').style.opacity = wizardStep === 1 ? '0.4' : '1';
@@ -431,22 +390,23 @@
         }
 
         // 6. Data Mapping & Safe PDF Export
+        function validateRequiredSurveyFields() { const requiredIds = ['curbNS','curbEW','hOverall','hClearance','pCenter','bDia','bThick','bWidth','bSpacing']; const missing = []; document.querySelectorAll('.input-error').forEach(node => node.classList.remove('input-error')); for (let i = 1; i <= totalCabinetModulesCount; i++) { ['r','d','b'].forEach(prefix => { const field = document.getElementById(`${prefix}${i}`); if (!field || !sanitizeFieldValue(field.value)) { missing.push(field ? field.id : `${prefix}${i}`); if (field) field.classList.add('input-error'); } }); } requiredIds.forEach(id => { const field = document.getElementById(id); if (!field || !sanitizeFieldValue(field.value)) { missing.push(id); if (field) field.classList.add('input-error'); } }); const banner = document.getElementById('validationBanner'); if (banner) banner.classList.toggle('hidden', missing.length === 0); return missing; }
         function executeMobileSafePDFDownload() {
-            // Set Date
-            document.getElementById('pdfPrintDate').innerText = new Date().toLocaleDateString();
-            
-            // Build the PDF Table Dynamically based on current module count
-            const tableBody = document.getElementById('pdf-table-body');
-            tableBody.innerHTML = ''; 
+            try {
+                const banner = document.getElementById('validationBanner'); if (banner) banner.classList.add('hidden'); const statusNode = document.getElementById('crewSessionStatus'); if (statusNode) statusNode.textContent = 'Preparing Survey Report';
+                // Set Date
+                document.getElementById('pdfPrintDate').innerText = new Date().toLocaleDateString();
+                
+            const tableBody = document.getElementById('pdf-table-body'); if (!tableBody || typeof html2pdf === 'undefined') { throw new Error('PDF engine unavailable'); } tableBody.innerHTML = '';
 
             for (let i = 1; i <= totalCabinetModulesCount; i++) {
-                const r = document.getElementById(`r${i}`).value || 'Not Disclosed';
-                const d = document.getElementById(`d${i}`).value || 'Not Disclosed';
-                const b = document.getElementById(`b${i}`).value || 'Not Disclosed';
+                const r = sanitizeFieldValue(document.getElementById(`r${i}`).value) || 'Not Provided';
+                const d = sanitizeFieldValue(document.getElementById(`d${i}`).value) || 'Not Provided';
+                const b = sanitizeFieldValue(document.getElementById(`b${i}`).value) || 'Not Provided';
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td class="p-2 font-bold bg-slate-50/50 border-r border-slate-200">Module Section 0${i}</td>
+                    <td class="p-2 font-bold bg-slate-50/50 border-r border-slate-200">Section ${i}</td>
                     <td class="p-2 border-r border-slate-200">${r}</td>
                     <td class="p-2 border-r border-slate-200">${d}</td>
                     <td class="p-2">${b}</td>
@@ -455,38 +415,40 @@
             }
 
             // Map Static Fields
-            document.getElementById('p-ns').innerText = document.getElementById('curbNS').value || 'Not Disclosed';
-            document.getElementById('p-ew').innerText = document.getElementById('curbEW').value || 'Not Disclosed';
-            document.getElementById('p-oh').innerText = document.getElementById('hOverall').value || 'Not Disclosed';
-            document.getElementById('p-hc').innerText = document.getElementById('hClearance').value || 'Not Disclosed';
-            document.getElementById('p-pc').innerText = document.getElementById('pCenter').value || 'Not Disclosed';
+            document.getElementById('p-ns').innerText = sanitizeFieldValue(document.getElementById('curbNS').value) || 'Not Provided';
+            document.getElementById('p-ew').innerText = sanitizeFieldValue(document.getElementById('curbEW').value) || 'Not Provided';
+            document.getElementById('p-oh').innerText = sanitizeFieldValue(document.getElementById('hOverall').value) || 'Not Provided';
+            document.getElementById('p-hc').innerText = sanitizeFieldValue(document.getElementById('hClearance').value) || 'Not Provided';
+            document.getElementById('p-pc').innerText = sanitizeFieldValue(document.getElementById('pCenter').value) || 'Not Provided';
 
-            document.getElementById('p-pattern').innerText = `${activeStructurePattern}-Bolt Framework`;
-            document.getElementById('p-dia').innerText = document.getElementById('bDia').value || 'Not Disclosed';
-            document.getElementById('p-thick').innerText = document.getElementById('bThick').value || 'Not Disclosed';
-            document.getElementById('p-wp').innerText = document.getElementById('bWidth').value || 'Not Disclosed';
-            document.getElementById('p-space').innerText = document.getElementById('bSpacing').value || 'Not Disclosed';
+            document.getElementById('p-pattern').innerText = activeStructurePattern === 4 ? '4-Bolt' : '6-Bolt';
+            document.getElementById('p-dia').innerText = sanitizeFieldValue(document.getElementById('bDia').value) || 'Not Provided';
+            document.getElementById('p-thick').innerText = sanitizeFieldValue(document.getElementById('bThick').value) || 'Not Provided';
+            document.getElementById('p-wp').innerText = sanitizeFieldValue(document.getElementById('bWidth').value) || 'Not Provided';
+            document.getElementById('p-space').innerText = sanitizeFieldValue(document.getElementById('bSpacing').value) || 'Not Provided';
 
-            // Trigger safe local download
-            const payloadSource = document.getElementById('pdfEnginePrintView');
-            const printingConfiguration = {
-                margin: [0.3, 0.3, 0.3, 0.3],
-                filename: 'EMPIRE-GROUND-SIGN-SURVEY.pdf',
-                image: { type: 'jpeg', quality: 1.0 },
-                html2canvas: { scale: 2, logging: false, useCORS: true },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-
-            html2pdf().set(printingConfiguration).from(payloadSource).outputPdf('blob').then(function(pdfBlobFile) {
-                const downloadLinkAnchor = document.createElement('a');
-                const fileURL = URL.createObjectURL(pdfBlobFile);
-                downloadLinkAnchor.href = fileURL;
-                downloadLinkAnchor.download = 'EMPIRE-GROUND-SIGN-SURVEY.pdf';
-                document.body.appendChild(downloadLinkAnchor);
-                downloadLinkAnchor.click();
-                document.body.removeChild(downloadLinkAnchor);
-                URL.revokeObjectURL(fileURL); // Clean up memory
-            });
+                // Trigger direct PDF save
+                const payloadSource = document.getElementById('pdfEnginePrintView');
+                const printingConfiguration = {
+                    margin: [0.3, 0.3, 0.3, 0.3],
+                    filename: 'EMPIRE-GROUND-SIGN-SURVEY.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, logging: false, useCORS: true, letterRendering: true },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+                    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+                };
+                const nextButton = document.getElementById('btnNext');
+                const originalButtonHtml = nextButton.innerHTML;
+                nextButton.disabled = true;
+                nextButton.innerHTML = 'Generating PDF...';
+                nextButton.classList.add('opacity-70');
+                html2pdf().set(printingConfiguration).from(payloadSource).save().then(() => {
+                    nextButton.innerHTML = 'Report Exported'; const statusNode = document.getElementById('crewSessionStatus'); if (statusNode) statusNode.textContent = 'Export Complete';
+                }).catch((error) => {
+                    console.error('PDF export failed:', error);
+                    alert('Unable to export the report right now. Please confirm the required fields and try again.');
+                }).finally(() => { nextButton.disabled = false; nextButton.innerHTML = originalButtonHtml; nextButton.classList.remove('opacity-70'); });
+            } catch (error) { console.error('PDF preparation failed:', error); const statusNode = document.getElementById('crewSessionStatus'); if (statusNode) statusNode.textContent = 'Export Error'; alert('Unable to prepare the survey report. Please review the current entries and try again.'); }
         }
     </script>
 </body>
