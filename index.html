@@ -22,184 +22,181 @@
         .matrix-row:hover, .matrix-row.active { stroke: #2563eb; fill: rgba(37, 99, 235, 0.04); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
-
-    <!-- SECURITY PASSCODE GATE SCREEN -->
-    <div id="passwordGate" class="fixed inset-0 bg-slate-900 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl border border-slate-200">
-            <!-- Exact Corporate Logo Execution -->
-            <div class="flex justify-center mb-6">
-                <div class="bg-white px-6 py-2 border border-slate-200 rounded-xl shadow-sm flex flex-col items-center justify-center h-16 w-36">
-                    <svg viewBox="0 0 100 56" class="w-full h-auto">
-                        <path d="M16,48 Q50,8 84,48" fill="none" stroke="#ef4444" stroke-width="11" stroke-linecap="square"/>
-                        <rect x="37" y="24" width="11" height="26" fill="#0b3c95"/>
-                        <rect x="52" y="24" width="11" height="26" fill="#0b3c95"/>
-                    </svg>
-                </div>
-            </div>
-            <h2 class="text-xl font-bold text-slate-900 mb-2">Crew Portal Authentication</h2>
-            <p class="text-sm text-slate-500 mb-6">Please enter your internal crew credentials to access interactive field blueprints.</p>
-            <input type="password" id="crewPassword" placeholder="Enter Crew Passcode" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-center text-lg font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 tracking-widest mb-4 text-slate-900">
-            <button onclick="verifyAccess()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl shadow-lg transition-all text-sm tracking-wide">Authenticate Unit</button>
-            <p id="gateError" class="text-red-600 text-xs mt-3 hidden flex items-center justify-center gap-1 font-medium">
-                <span class="material-icons text-sm">error</span> Invalid Crew Token.
-            </p>
-        </div>
-    </div>
+<body class="bg-[#f8fafc] text-slate-900 min-h-screen flex flex-col antialiased">
 
     <!-- MAIN PLATFORM COMPONENT INTERFACE -->
-    <div id="appInterface" class="hidden flex-1 flex flex-col min-h-screen">
+    <div id="appInterface" class="flex-1 flex flex-col min-h-screen">
         
-        <!-- HIGH-END APP HEADER -->
-        <header class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-40 shadow-sm flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <!-- Precision Corporate Logo -->
-                <div class="bg-white px-4 py-1.5 border border-slate-200 rounded-lg shadow-sm flex flex-col items-center justify-center h-12 w-28">
-                    <svg viewBox="0 0 100 56" class="w-full h-auto">
-                        <path d="M16,48 Q50,8 84,48" fill="none" stroke="#ef4444" stroke-width="11" stroke-linecap="square"/>
-                        <rect x="37" y="24" width="11" height="26" fill="#0b3c95"/>
-                        <rect x="52" y="24" width="11" height="26" fill="#0b3c95"/>
+        <!-- HIGH-END APP HEADER (EXACT REPLICATION) -->
+        <header class="bg-white border-b border-slate-200 px-6 py-3 sticky top-0 z-40 shadow-xs flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Precision Corporate Logo Block -->
+                <div class="bg-white px-3 py-1 border border-slate-200 rounded-xl shadow-xs flex items-center justify-center h-12 w-20">
+                    <svg viewBox="0 0 120 80" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Red Outer Arch / Left Peak -->
+                        <path d="M 20 65 C 20 15, 55 15, 55 65" fill="none" stroke="#e11d48" stroke-width="12" stroke-linecap="round"/>
+                        <!-- Blue Inner Arch / Right Peak -->
+                        <path d="M 65 65 C 65 15, 100 15, 100 65" fill="none" stroke="#1e40af" stroke-width="12" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-lg font-extrabold tracking-tight text-slate-900 uppercase leading-none">Empire</h1>
-                    <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-1">Canopy • Sign • Construction</p>
+                    <h1 class="text-base font-black tracking-tight text-slate-900 uppercase leading-none">Empire</h1>
+                    <p class="text-[9px] uppercase tracking-widest text-slate-400 font-extrabold mt-1">Canopy • Sign • Construction</p>
                 </div>
             </div>
             <div class="text-right flex flex-col items-end">
-                <span class="bg-slate-100 text-slate-800 text-[11px] px-3 py-1 rounded-full font-semibold border border-slate-200 uppercase tracking-wider shadow-sm">
+                <span class="bg-white text-slate-800 text-[10px] px-3 py-1 rounded-full font-bold border border-slate-200 uppercase tracking-wider shadow-2xs">
                     Sign Survey Utility
                 </span>
-                <span id="stepCount" class="text-xs text-slate-500 font-mono mt-1 font-medium">Step 1 of 3</span>
+                <span id="stepCount" class="text-[10px] text-slate-400 font-mono mt-1 font-bold">Step 1 of 3</span>
             </div>
         </header>
 
-        <!-- TWO-COLUMN WORKSPACE (MATCHES CLEAN SURVEY FORM LAYOUT) -->
-        <main class="flex-1 lg:flex max-w-7xl w-full mx-auto p-4 lg:p-8 gap-8">
+        <!-- TWO-COLUMN WORKSPACE CONTAINER -->
+        <main class="flex-1 lg:flex max-w-7xl w-full mx-auto p-4 lg:p-8 gap-8 items-start mb-20">
             
             <!-- LEFT COLUMN: VISUAL SCHEMATIC CARD -->
             <section class="w-full lg:w-5/12 mb-6 lg:mb-0">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm sticky top-[100px] flex flex-col items-center">
-                    <span class="text-xs font-bold tracking-wider text-slate-400 uppercase mb-4 block text-center" id="diagramTitle">
-                        Interactive Cabinet Blueprint
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs sticky top-[90px] flex flex-col items-center min-h-[340px] justify-center">
+                    <span class="text-[11px] font-extrabold tracking-widest text-slate-400 uppercase mb-6 block text-center" id="diagramTitle">
+                        INTERACTIVE CABINET BLUEPRINT
                     </span>
                     
-                    <!-- DIAGRAM VIEWER 1: CABINET GRID -->
-                    <div id="canvas-matrix" class="w-full flex justify-center py-4">
-                        <svg width="160" height="260" viewBox="0 0 160 260" class="overflow-visible">
-                            <rect id="v-ret1" onclick="focusCardField(1)" x="20" y="10" width="90" height="48" rx="6" class="matrix-row stroke-slate-300 fill-slate-50 cursor-pointer" stroke-width="2"/>
-                            <text x="65" y="34" text-anchor="middle" class="fill-slate-600 text-xs font-semibold pointer-events-none">Module #1</text>
-                            <text id="lbl-m1" x="65" y="47" text-anchor="middle" class="fill-blue-600 text-[10px] font-mono font-bold pointer-events-none"></text>
+                    <!-- DIAGRAM VIEWER 1: CABINET GRID (image_d95259.png) -->
+                    <div id="canvas-matrix" class="w-full flex justify-center items-center py-2">
+                        <div class="flex items-center gap-4">
+                            <div class="flex flex-col gap-2 w-32">
+                                <div id="v-ret1" class="border-2 border-blue-600 bg-white rounded-lg p-2 text-center shadow-xs">
+                                    <p class="text-[11px] font-bold text-slate-800">Module #1</p>
+                                    <p id="lbl-m1" class="text-[9px] font-mono font-bold text-blue-600 mt-0.5">12 x 25</p>
+                                </div>
+                                <div id="v-ret2" class="border-2 border-blue-600 bg-white rounded-lg p-2 text-center shadow-xs">
+                                    <p class="text-[11px] font-bold text-slate-800">Module #2</p>
+                                    <p id="lbl-m2" class="text-[9px] font-mono font-bold text-blue-600 mt-0.5">654 x 654</p>
+                                </div>
+                                <div id="v-ret3" class="border border-slate-300 bg-white rounded-lg p-2 text-center opacity-80">
+                                    <p class="text-[11px] font-bold text-slate-500">Module #3</p>
+                                </div>
+                                <div id="v-ret4" class="border border-slate-200 bg-slate-50 rounded-lg p-2 text-center opacity-60">
+                                    <p class="text-[11px] font-bold text-slate-400">Module #4</p>
+                                </div>
+                            </div>
+                            <!-- Dimension Arrow Element -->
+                            <div class="flex flex-col justify-between h-52 text-slate-400 font-mono text-xs">
+                                <span class="material-icons text-sm leading-none">arrow_upward</span>
+                                <div class="w-[1px] h-full bg-slate-300 mx-auto"></div>
+                                <span class="material-icons text-sm leading-none">arrow_downward</span>
+                            </div>
+                        </div>
+                    </div>
 
-                            <rect id="v-ret2" onclick="focusCardField(2)" x="20" y="68" width="90" height="48" rx="6" class="matrix-row stroke-slate-300 fill-slate-50 cursor-pointer" stroke-width="2"/>
-                            <text x="65" y="92" text-anchor="middle" class="fill-slate-600 text-xs font-semibold pointer-events-none">Module #2</text>
-                            <text id="lbl-m2" x="65" y="105" text-anchor="middle" class="fill-blue-600 text-[10px] font-mono font-bold pointer-events-none"></text>
+                    <!-- DIAGRAM VIEWER 2: ELEVATIONS (image_d94f76.png) -->
+                    <div id="canvas-elevation" class="w-full hidden py-2 flex justify-center">
+                        <svg width="240" height="200" viewBox="0 0 240 200" class="overflow-visible">
+                            <!-- Main Sign Cabinet -->
+                            <rect x="65" y="20" width="100" height="45" rx="4" fill="none" stroke="#1e293b" stroke-width="2"/>
+                            <!-- Twin Structural Support Columns -->
+                            <rect x="85" y="65" width="12" height="85" fill="#334155"/>
+                            <rect x="133" y="65" width="12" height="85" fill="#334155"/>
+                            <!-- Ground Base Line -->
+                            <line x1="20" y1="150" x2="220" y2="150" stroke="#0f172a" stroke-width="3"/>
+                            <text x="200" y="168" class="fill-slate-500 text-[10px] font-extrabold tracking-wider uppercase">GRADE</text>
 
-                            <rect id="v-ret3" onclick="focusCardField(3)" x="20" y="126" width="90" height="48" rx="6" class="matrix-row stroke-slate-300 fill-slate-50 cursor-pointer" stroke-width="2"/>
-                            <text x="65" y="150" text-anchor="middle" class="fill-slate-600 text-xs font-semibold pointer-events-none">Module #3</text>
-                            <text id="lbl-m3" x="65" y="163" text-anchor="middle" class="fill-blue-600 text-[10px] font-mono font-bold pointer-events-none"></text>
+                            <!-- Overall Height Dimension Indicator Line -->
+                            <g fill="none" stroke="#2563eb" stroke-width="1.5">
+                                <path d="M 45 25 L 45 150"/>
+                                <path d="M 41 32 L 45 25 L 49 32"/>
+                                <path d="M 41 143 L 45 150 L 49 143"/>
+                            </g>
+                            <text x="35" y="88" text-anchor="middle" transform="rotate(-90 35,88)" class="fill-blue-600 font-mono text-[9px] font-black uppercase tracking-wider">OVERALL HT</text>
 
-                            <rect id="v-ret4" onclick="focusCardField(4)" x="20" y="184" width="90" height="48" rx="6" class="matrix-row stroke-slate-300 fill-slate-50 cursor-pointer" stroke-width="2"/>
-                            <text x="65" y="208" text-anchor="middle" class="fill-slate-600 text-xs font-semibold pointer-events-none">Module #4</text>
-                            <text id="lbl-m4" x="65" y="221" text-anchor="middle" class="fill-blue-600 text-[10px] font-mono font-bold pointer-events-none"></text>
-
-                            <line x1="130" y1="10" x2="130" y2="232" stroke="#94a3b8" stroke-width="1.5"/>
-                            <path d="M126,15 L130,10 L134,15 M126,227 L130,232 L134,227" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+                            <!-- Clearance Dimension Indicator Line -->
+                            <g fill="none" stroke="#16a34a" stroke-width="1.5">
+                                <path d="M 185 65 L 185 150"/>
+                                <path d="M 181 72 L 185 65 L 189 72"/>
+                                <path d="M 181 143 L 185 150 L 189 143"/>
+                            </g>
+                            <text x="195" y="108" text-anchor="middle" transform="rotate(90 195,108)" class="fill-green-600 font-mono text-[9px] font-black uppercase tracking-wider">CLEARANCE</text>
                         </svg>
                     </div>
 
-                    <!-- DIAGRAM VIEWER 2: ELEVATIONS -->
-                    <div id="canvas-elevation" class="w-full hidden py-4 flex justify-center">
-                        <svg width="220" height="240" viewBox="0 0 220 240" class="overflow-visible">
-                            <rect x="50" y="30" width="120" height="60" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
-                            <rect x="75" y="90" width="12" height="110" fill="#475569"/>
-                            <rect x="133" y="90" width="12" height="110" fill="#475569"/>
-                            <line x1="10" y1="200" x2="210" y2="200" stroke="#334155" stroke-width="2.5"/>
-                            <text x="185" y="218" class="fill-slate-500 text-[10px] font-bold tracking-wider uppercase">Grade</text>
-
-                            <line x1="25" y1="30" x2="25" y2="200" stroke="#2563eb" stroke-width="1.5"/>
-                            <path d="M21,35 L25,30 L29,35 M21,195 L25,200 L29,195" fill="none" stroke="#2563eb" stroke-width="1.5"/>
-                            <text x="18" y="115" text-anchor="middle" transform="rotate(-90 18,115)" class="fill-blue-600 font-mono text-[10px] font-bold">OVERALL HT</text>
-
-                            <line x1="195" y1="90" x2="195" y2="200" stroke="#16a34a" stroke-width="1.5"/>
-                            <path d="M191,95 L195,90 L199,95 M191,195 L195,200 L199,195" fill="none" stroke="#16a34a" stroke-width="1.5"/>
-                            <text x="204" y="145" text-anchor="middle" transform="rotate(90 204,145)" class="fill-green-600 font-mono text-[10px] font-bold">CLEARANCE</text>
-                        </svg>
-                    </div>
-
-                    <!-- DIAGRAM VIEWER 3: BASEPLATE -->
-                    <div id="canvas-baseplate" class="w-full hidden py-6 flex justify-center">
-                        <svg width="200" height="200" viewBox="0 0 200 200" class="overflow-visible">
-                            <rect x="25" y="25" width="150" height="150" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
-                            <circle cx="100" cy="100" r="28" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+                    <!-- DIAGRAM VIEWER 3: BASEPLATE (image_d94bb8.png) -->
+                    <div id="canvas-baseplate" class="w-full hidden py-4 flex justify-center">
+                        <svg width="180" height="180" viewBox="0 0 180 180" class="overflow-visible">
+                            <!-- Base Anchor Plate Frame -->
+                            <rect x="25" y="25" width="130" height="130" rx="8" fill="#ffffff" stroke="#334155" stroke-width="2.5"/>
+                            <!-- Core Structural Support Column Target Cross Section -->
+                            <circle cx="90" cy="90" r="24" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
                             
+                            <!-- 4-Bolt Corner Hardware Array Configurations -->
                             <g id="g-bolts4">
-                                <circle cx="50" cy="50" r="8" fill="#475569" stroke="#ffffff" stroke-width="2"/>
-                                <circle cx="150" cy="50" r="8" fill="#475569" stroke="#ffffff" stroke-width="2"/>
-                                <circle cx="50" cy="150" r="8" fill="#475569" stroke="#ffffff" stroke-width="2"/>
-                                <circle cx="150" cy="150" r="8" fill="#475569" stroke="#ffffff" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="7" fill="#475569"/>
+                                <circle cx="130" cy="50" r="7" fill="#475569"/>
+                                <circle cx="50" cy="130" r="7" fill="#475569"/>
+                                <circle cx="130" cy="130" r="7" fill="#475569"/>
                             </g>
 
+                            <!-- Optional 6-Bolt Interstitial Axis Structural Fasteners -->
                             <g id="g-bolts6" class="hidden">
-                                <circle cx="50" cy="100" r="8" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
-                                <circle cx="150" cy="100" r="8" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                                <circle cx="50" cy="90" r="7" fill="#2563eb"/>
+                                <circle cx="130" cy="90" r="7" fill="#2563eb"/>
                             </g>
                         </svg>
                     </div>
                 </div>
             </section>
 
-            <!-- RIGHT COLUMN: MASTER CLEAN SURVEY INPUTS -->
-            <section class="flex-1 max-w-xl pb-24">
+            <!-- RIGHT COLUMN: MASTER INPUT PANEL MODULES -->
+            <section class="flex-1 max-w-xl">
                 
-                <!-- STEP 1: CABINET ARRAYS -->
+                <!-- STEP 1 PANEL: CABINET CONFIGURATOR -->
                 <div id="step1" class="step-panel active space-y-6">
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                        <h3 class="text-base font-bold text-slate-900 mb-5 flex items-center gap-2 border-b border-slate-100 pb-3">
-                            <span class="material-icons text-blue-600">view_week</span> Sign Cabinet System Dimensions
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
+                        <h3 class="text-sm font-bold text-slate-900 mb-5 flex items-center gap-2 border-b border-slate-100 pb-3">
+                            <span class="material-icons text-blue-600 text-lg">view_week</span> Sign Cabinet System Dimensions
                         </h3>
                         
-                        <div class="space-y-6">
-                            <!-- Section 1 -->
-                            <div id="f-card1" class="p-5 bg-slate-50 border border-slate-200 rounded-xl transition-all">
-                                <div class="text-xs font-bold text-slate-500 mb-4 tracking-wider uppercase flex justify-between items-center">
-                                    <span>Cabinet Module 01</span>
-                                    <span class="w-2.5 h-2.5 rounded-full bg-slate-300 state-dot"></span>
+                        <div class="space-y-5">
+                            <!-- Cabinet Module 01 Field Card Block -->
+                            <div class="p-5 bg-white border border-slate-200 rounded-xl relative">
+                                <div class="text-[10px] font-black text-slate-400 mb-4 tracking-widest uppercase flex justify-between items-center">
+                                    <span>CABINET MODULE 01</span>
+                                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
                                 </div>
                                 <div class="grid grid-cols-3 gap-3">
                                     <div>
-                                        <label class="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">Retainer</label>
-                                        <input type="text" id="r1" oninput="syncMatrixMetrics(1)" placeholder="Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">RETAINER</label>
+                                        <input type="text" id="r1" value="12" oninput="liveUpdateMatrix(1)" class="w-full bg-white border border-slate-200 text-xs rounded-lg px-3 py-2 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-medium">
                                     </div>
                                     <div>
-                                        <label class="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">Depth</label>
-                                        <input type="text" id="d1" oninput="syncMatrixMetrics(1)" placeholder="Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">DEPTH</label>
+                                        <input type="text" id="d1" value="25" oninput="liveUpdateMatrix(1)" class="w-full bg-white border border-slate-200 text-xs rounded-lg px-3 py-2 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-medium">
                                     </div>
                                     <div>
-                                        <label class="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">Divider</label>
-                                        <input type="text" id="b1" oninput="syncMatrixMetrics(1)" placeholder="Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">DIVIDER</label>
+                                        <input type="text" id="b1" value="2" oninput="liveUpdateMatrix(1)" class="w-full bg-white border border-slate-200 text-xs rounded-lg px-3 py-2 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-medium">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Section 2 -->
-                            <div id="f-card2" class="p-5 bg-slate-50 border border-slate-200 rounded-xl transition-all">
-                                <div class="text-xs font-bold text-slate-500 mb-4 tracking-wider uppercase flex justify-between items-center">
-                                    <span>Cabinet Module 02</span>
-                                    <span class="w-2.5 h-2.5 rounded-full bg-slate-300 state-dot"></span>
+                            <!-- Cabinet Module 02 Field Card Block -->
+                            <div class="p-5 bg-white border border-slate-200 rounded-xl relative">
+                                <div class="text-[10px] font-black text-slate-400 mb-4 tracking-widest uppercase flex justify-between items-center">
+                                    <span>CABINET MODULE 02</span>
+                                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
                                 </div>
                                 <div class="grid grid-cols-3 gap-3">
                                     <div>
-                                        <label class="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">Retainer</label>
-                                        <input type="text" id="r2" oninput="syncMatrixMetrics(2)" placeholder="Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">RETAINER</label>
+                                        <input type="text" id="r2" value="654" oninput="liveUpdateMatrix(2)" class="w-full bg-white border border-slate-200 text-xs rounded-lg px-3 py-2 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-medium">
                                     </div>
                                     <div>
-                                        <label class="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">Depth</label>
-                                        <input type="text" id="d2" oninput="syncMatrixMetrics(2)" placeholder="Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">DEPTH</label>
+                                        <input type="text" id="d2" value="654" oninput="liveUpdateMatrix(2)" class="w-full bg-white border border-slate-200 text-xs rounded-lg px-3 py-2 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-medium">
                                     </div>
                                     <div>
-                                        <label class="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">Divider</label>
-                                        <input type="text" id="b2" oninput="syncMatrixMetrics(2)" placeholder="Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">DIVIDER</label>
+                                        <input type="text" id="b2" value="465" oninput="liveUpdateMatrix(2)" class="w-full bg-white border border-blue-500 text-xs rounded-lg px-3 py-2 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-medium ring-2 ring-blue-100">
                                     </div>
                                 </div>
                             </div>
@@ -207,71 +204,72 @@
                     </div>
                 </div>
 
-                <!-- STEP 2: ELEVATIONS & COORDS -->
+                <!-- STEP 2 PANEL: STRUCTURAL OFFSETS -->
                 <div id="step2" class="step-panel space-y-6">
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
-                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-                            <span class="material-icons text-green-600">straighten</span> Structural Elevations & Field Offsets
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-5">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
+                            <span class="material-icons text-green-600 text-lg">layers</span> Structural Elevations & Field Offsets
                         </h3>
                         
-                        <div class="border border-slate-200 bg-slate-50 p-4 rounded-xl space-y-4">
-                            <span class="text-xs font-bold text-blue-600 block tracking-wider uppercase">Curb Line Offsets</span>
+                        <div class="space-y-4">
+                            <span class="text-[10px] font-black text-blue-600 block tracking-widest uppercase">CURB LINE OFFSETS</span>
                             <div>
-                                <label class="block text-xs font-medium text-slate-700 mb-1.5">Distance North-to-South Line (To Curb)</label>
-                                <input type="text" id="curbNS" placeholder="e.g. 14' 6&quot;" class="w-full bg-white border border-slate-300 text-sm rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900">
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Distance North-to-South Line (To Curb)</label>
+                                <input type="text" id="curbNS" value="45242" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-700 mb-1.5">Distance East-to-West Line (To Curb)</label>
-                                <input type="text" id="curbEW" placeholder="e.g. 9' 2&quot;" class="w-full bg-white border border-slate-300 text-sm rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900">
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Distance East-to-West Line (To Curb)</label>
+                                <input type="text" id="curbEW" value="5242" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
 
-                        <div class="border border-slate-200 bg-slate-50 p-4 rounded-xl space-y-4">
-                            <span class="text-xs font-bold text-blue-600 block tracking-wider uppercase">Height & Placement Profiles</span>
+                        <div class="space-y-4 pt-2">
+                            <span class="text-[10px] font-black text-blue-600 block tracking-widest uppercase">HEIGHT & PLACEMENT PROFILES</span>
                             <div>
-                                <label class="block text-xs font-medium text-slate-700 mb-1.5">Overall Structural Height (Top of Sign to Grade)</label>
-                                <input type="text" id="hOverall" placeholder="Feet / Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900">
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Overall Structural Height (Top of Sign to Grade)</label>
+                                <input type="text" id="hOverall" value="452" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-700 mb-1.5">Roadway Clearance (Bottom of Cabinet to Grade)</label>
-                                <input type="text" id="hClearance" placeholder="Feet / Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900">
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Roadway Clearance (Bottom of Cabinet to Grade)</label>
+                                <input type="text" id="hClearance" value="542" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-700 mb-1.5">Center-to-Center Support Pole Interval</label>
-                                <input type="text" id="pCenter" placeholder="Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900">
+                                <label class="block text-xs font-medium text-slate-600 mb-1.5">Center-to-Center Support Pole Interval</label>
+                                <input type="text" id="pCenter" value="542" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- STEP 3: BASEPLATE FOUNDATIONS -->
+                <!-- STEP 3 PANEL: ANCHOR FRAME PLATFORMS -->
                 <div id="step3" class="step-panel space-y-6">
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
-                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-                            <span class="material-icons text-amber-600">layers</span> Anchor Plates & Structural Fasteners
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-5">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
+                            <span class="material-icons text-amber-600 text-lg">grid_view</span> Anchor Plates & Structural Fasteners
                         </h3>
 
-                        <div class="grid grid-cols-2 p-1 bg-slate-100 border border-slate-200 rounded-xl text-center text-xs font-semibold">
-                            <button type="button" onclick="switchFastenerPattern(4)" id="tab4" class="py-2.5 rounded-lg transition-all bg-white text-slate-900 shadow-sm border border-slate-200">4-Bolt System</button>
-                            <button type="button" onclick="switchFastenerPattern(6)" id="tab6" class="py-2.5 rounded-lg transition-all text-slate-500 hover:text-slate-800">6-Bolt System</button>
+                        <!-- Exact Tab Control System Replicated from image_d94bb8.png -->
+                        <div class="grid grid-cols-2 p-1 bg-slate-100 border border-slate-200 rounded-xl text-center text-xs font-bold">
+                            <button type="button" onclick="toggleStructuralPattern(4)" id="tab4" class="py-2 rounded-lg transition-all bg-white text-slate-900 shadow-xs border border-slate-200">4-Bolt System</button>
+                            <button type="button" onclick="toggleStructuralPattern(6)" id="tab6" class="py-2 rounded-lg transition-all text-slate-500 hover:text-slate-800">6-Bolt System</button>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-slate-50 p-4 border border-slate-200 rounded-xl">
-                                <label class="block text-xs font-medium text-slate-700 mb-1.5">Bolt Axis Diameter</label>
-                                <input type="text" id="bDia" placeholder="Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900">
+                            <div class="bg-white p-4 border border-slate-200 rounded-xl">
+                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Bolt Axis Diameter</label>
+                                <input type="text" id="bDia" value="572" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                             </div>
-                            <div class="bg-slate-50 p-4 border border-slate-200 rounded-xl">
-                                <label class="block text-xs font-medium text-slate-700 mb-1.5">Base Plate Thickness</label>
-                                <input type="text" id="bThick" placeholder="Inches" class="w-full bg-white border border-slate-300 text-sm rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900">
+                            <div class="bg-white p-4 border border-slate-200 rounded-xl">
+                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Base Plate Thickness</label>
+                                <input type="text" id="bThick" value="7542" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                             </div>
-                            <div class="bg-slate-50 p-4 border border-slate-200 rounded-xl col-span-2">
-                                <label class="block text-xs font-medium text-slate-700 mb-1.5">Plate Perimeter Width Dimension</label>
-                                <input type="text" id="bWidth" placeholder="Width profile sizing" class="w-full bg-white border border-slate-300 text-sm rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900">
+                            <div class="bg-white p-4 border border-slate-200 rounded-xl col-span-2">
+                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Plate Perimeter Width Dimension</label>
+                                <input type="text" id="bWidth" value="452" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                             </div>
-                            <div class="bg-slate-50 p-4 border border-slate-200 rounded-xl col-span-2">
-                                <label class="block text-xs font-medium text-slate-700 mb-1.5">Linear Bolt Anchor Center Spacing</label>
-                                <input type="text" id="bSpacing" placeholder="Spacing interval dimensions" class="w-full bg-white border border-slate-300 text-sm rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900">
+                            <div class="bg-white p-4 border border-slate-200 rounded-xl col-span-2">
+                                <label class="block text-xs font-medium text-slate-500 mb-1.5">Linear Bolt Anchor Center Spacing</label>
+                                <input type="text" id="bSpacing" value="572" class="w-full bg-white border border-slate-200 text-xs rounded-lg p-2.5 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
                     </div>
@@ -280,89 +278,100 @@
             </section>
         </main>
 
-        <!-- SECURE APP NAVIGATION FOOTER -->
-        <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 shadow-lg z-40">
-            <div class="max-w-md mx-auto flex justify-between items-center gap-4">
-                <button id="btnBack" onclick="navigateWizardStep(-1)" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm border border-slate-300 transition-all flex items-center justify-center gap-1 opacity-40 pointer-events-none">
+        <!-- APP INTERACTIVE FOOTER SYSTEM CONTROLS -->
+        <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 shadow-md z-40">
+            <div class="max-w-md mx-auto flex justify-between items-center gap-3">
+                <button id="btnBack" onclick="navigateWizardStep(-1)" class="flex-1 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-xs border border-slate-200 transition-all flex items-center justify-center gap-1 opacity-40 pointer-events-none">
                     <span class="material-icons text-sm">arrow_back</span> Back
                 </button>
-                <button id="btnNext" onclick="navigateWizardStep(1)" class="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-sm shadow-md transition-all flex items-center justify-center gap-1">
+                <button id="btnNext" onclick="navigateWizardStep(1)" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-xs transition-all flex items-center justify-center gap-1">
                     Next Step <span class="material-icons text-sm">arrow_forward</span>
                 </button>
             </div>
         </footer>
 
-        <!-- PREMIUM PRINT REPORT LOG TEMPLATE -->
-        <div id="pdfEnginePrintView" class="hidden bg-white text-slate-900 p-10 font-sans text-xs" style="width: 790px;">
-            <div class="border-2 border-slate-300 p-8 space-y-6">
-                <div class="flex justify-between items-center border-b-2 border-slate-400 pb-5">
-                    <div class="flex items-center space-x-4">
-                        <svg viewBox="0 0 100 56" class="w-16 h-10">
-                            <path d="M16,48 Q50,8 84,48" fill="none" stroke="#ef4444" stroke-width="11" stroke-linecap="square"/>
-                            <rect x="37" y="24" width="11" height="26" fill="#0b3c95"/>
-                            <rect x="52" y="24" width="11" height="26" fill="#0b3c95"/>
-                        </svg>
-                        <div>
-                            <h2 class="text-xl font-black tracking-tight leading-none text-slate-900">EMPIRE</h2>
-                            <p class="text-[9px] uppercase tracking-widest text-slate-500 font-bold mt-1">Canopy • Sign • Construction</p>
+        <!-- 1:1 REPLICATED HIGH-END PRINT DOCUMENT (image_d94b93.png) -->
+        <div class="absolute top-[-9999px] left-[-9999px]">
+            <div id="pdfEnginePrintView" class="bg-white text-slate-900 p-8 font-sans" style="width: 790px; min-height: 1020px;">
+                <div class="border border-slate-300 p-6 space-y-6">
+                    <!-- Clean Document Header -->
+                    <div class="flex justify-between items-center border-b-2 border-slate-300 pb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-white px-2 py-1 border border-slate-200 rounded-lg flex items-center justify-center h-10 w-16">
+                                <svg viewBox="0 0 120 80" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 20 65 C 20 15, 55 15, 55 65" fill="none" stroke="#e11d48" stroke-width="12" stroke-linecap="round"/>
+                                    <path d="M 65 65 C 65 15, 100 15, 100 65" fill="none" stroke="#1e40af" stroke-width="12" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-base font-black tracking-tight leading-none text-slate-900 uppercase">EMPIRE</h2>
+                                <p class="text-[8px] uppercase tracking-widest text-slate-400 font-extrabold mt-0.5">Canopy • Sign • Construction</p>
+                            </div>
+                        </div>
+                        <div class="text-right font-mono text-[9px]">
+                            <p class="font-black text-slate-900 text-xs tracking-wide">FIELD ENGINEERING SIGN REPORT</p>
+                            <p class="text-slate-400 mt-0.5">Log Date: <span id="pdfPrintDate">6/3/2026</span></p>
                         </div>
                     </div>
-                    <div class="text-right font-mono text-[10px] text-slate-500">
-                        <p class="font-extrabold text-slate-900 text-sm tracking-wide">FIELD ENGINEERING SIGN REPORT</p>
-                        <p class="mt-1">Log Date: <span id="pdfPrintDate"></span></p>
-                    </div>
-                </div>
 
-                <div>
-                    <h3 class="font-bold border-b border-slate-800 mb-3 uppercase text-slate-900 text-[11px] tracking-wide">1.0 Cabinet Profile Dimensions</h3>
-                    <table class="w-full text-left border-collapse border border-slate-300 text-sm">
-                        <thead>
-                            <tr class="bg-slate-100 font-bold text-xs text-slate-700 border-b border-slate-300">
-                                <th class="border border-slate-300 p-2.5">Module Section</th>
-                                <th class="border border-slate-300 p-2.5">Retainer Size</th>
-                                <th class="border border-slate-300 p-2.5">Depth Dimension</th>
-                                <th class="border border-slate-300 p-2.5">Divider Sizing</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-200">
-                            <tr>
-                                <td class="border border-slate-300 p-2.5 font-semibold bg-slate-50">Module Section 01</td>
-                                <td class="border border-slate-300 p-2.5" id="p-r1">-</td>
-                                <td class="border border-slate-300 p-2.5" id="p-d1">-</td>
-                                <td class="border border-slate-300 p-2.5" id="p-b1">-</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-slate-300 p-2.5 font-semibold bg-slate-50">Module Section 02</td>
-                                <td class="border border-slate-300 p-2.5" id="p-r2">-</td>
-                                <td class="border border-slate-300 p-2.5" id="p-d2">-</td>
-                                <td class="border border-slate-300 p-2.5" id="p-b2">-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="border border-slate-300 p-4 rounded-xl">
-                        <h3 class="font-bold border-b border-slate-400 mb-3 uppercase text-slate-900 text-[10px] tracking-wider">2.0 Property Edge Offsets</h3>
-                        <p class="mb-2 text-sm"><strong>North-South Line to Curb:</strong> <span id="p-ns" class="font-mono text-slate-800 font-semibold">-</span></p>
-                        <p class="text-sm"><strong>East-West Line to Curb:</strong> <span id="p-ew" class="font-mono text-slate-800 font-semibold">-</span></p>
+                    <!-- 1.0 Cabinet Profiles Sizing Matrix -->
+                    <div>
+                        <h3 class="font-bold border-b border-slate-900 mb-2 uppercase text-slate-900 text-[10px] tracking-wider">1.0 CABINET PROFILE DIMENSIONS</h3>
+                        <table class="w-full text-left border border-slate-200 text-[11px]">
+                            <thead>
+                                <tr class="bg-slate-50 font-bold text-slate-600 border-b border-slate-200">
+                                    <th class="p-2 border-r border-slate-200">Module Section</th>
+                                    <th class="p-2 border-r border-slate-200">Retainer Size</th>
+                                    <th class="p-2 border-r border-slate-200">Depth Dimension</th>
+                                    <th class="p-2">Divider Sizing</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr>
+                                    <td class="p-2 font-bold bg-slate-50/50 border-r border-slate-200">Module Section 01</td>
+                                    <td class="p-2 border-r border-slate-200" id="p-r1">12</td>
+                                    <td class="p-2 border-r border-slate-200" id="p-d1">25</td>
+                                    <td class="p-2" id="p-b1">2</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 font-bold bg-slate-50/50 border-r border-slate-200">Module Section 02</td>
+                                    <td class="p-2 border-r border-slate-200" id="p-r2">654</td>
+                                    <td class="p-2 border-r border-slate-200" id="p-d2">654</td>
+                                    <td class="p-2" id="p-b2">465</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="border border-slate-300 p-4 rounded-xl">
-                        <h3 class="font-bold border-b border-slate-400 mb-3 uppercase text-slate-900 text-[10px] tracking-wider">3.0 Structural Tolerances</h3>
-                        <p class="mb-2 text-sm"><strong>Overall Height Vector:</strong> <span id="p-oh" class="font-mono text-slate-800 font-semibold">-</span></p>
-                        <p class="mb-2 text-sm"><strong>Clearance Height Matrix:</strong> <span id="p-hc" class="font-mono text-slate-800 font-semibold">-</span></p>
-                        <p class="text-sm"><strong>Support Pole Center Line:</strong> <span id="p-pc" class="font-mono text-slate-800 font-semibold">-</span></p>
-                    </div>
-                </div>
 
-                <div class="border border-slate-300 p-4 rounded-xl">
-                    <h3 class="font-bold border-b border-slate-400 mb-3 uppercase text-slate-900 text-[10px] tracking-wider">4.0 Foundation Base Hardware Profiles</h3>
-                    <div class="grid grid-cols-2 gap-y-2.5 gap-x-6 text-sm">
-                        <p><strong>System Configuration:</strong> <span id="p-pattern" class="font-mono font-bold text-slate-900">-</span></p>
-                        <p><strong>Bolt Thread Diameter:</strong> <span id="p-dia" class="font-mono text-slate-800">-</span></p>
-                        <p><strong>Base Plate Thickness:</strong> <span id="p-thick" class="font-mono text-slate-800">-</span></p>
-                        <p><strong>Base Plate Width Dimension:</strong> <span id="p-wp" class="font-mono text-slate-800">-</span></p>
-                        <p class="col-span-2"><strong>Bolt Center Spacing Axis:</strong> <span id="p-space" class="font-mono text-slate-800">-</span></p>
+                    <!-- 2.0 and 3.0 Side-by-Side Flex Panels -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="border border-slate-200 p-3 rounded-lg bg-white">
+                            <h3 class="font-black border-b border-slate-200 mb-2 uppercase text-slate-900 text-[9px] tracking-wider pb-1">2.0 PROPERTY EDGE OFFSETS</h3>
+                            <div class="space-y-1.5 text-[11px]">
+                                <p><span class="text-slate-800 font-bold">North-South Line to Curb:</span> <span id="p-ns" class="font-mono text-slate-900 font-medium">45242</span></p>
+                                <p><span class="text-slate-800 font-bold">East-West Line to Curb:</span> <span id="p-ew" class="font-mono text-slate-900 font-medium">5242</span></p>
+                            </div>
+                        </div>
+                        <div class="border border-slate-200 p-3 rounded-lg bg-white">
+                            <h3 class="font-black border-b border-slate-200 mb-2 uppercase text-slate-900 text-[9px] tracking-wider pb-1">3.0 STRUCTURAL TOLERANCES</h3>
+                            <div class="space-y-1.5 text-[11px]">
+                                <p><span class="text-slate-800 font-bold">Overall Height Vector:</span> <span id="p-oh" class="font-mono text-slate-900 font-medium">452</span></p>
+                                <p><span class="text-slate-800 font-bold">Clearance Height Matrix:</span> <span id="p-hc" class="font-mono text-slate-900 font-medium">542</span></p>
+                                <p><span class="text-slate-800 font-bold">Support Pole Center Line:</span> <span id="p-pc" class="font-mono text-slate-900 font-medium">542</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4.0 Foundation Baseline Profile -->
+                    <div class="border border-slate-200 p-3 rounded-lg bg-white">
+                        <h3 class="font-black border-b border-slate-200 mb-2 uppercase text-slate-900 text-[9px] tracking-wider pb-1">4.0 FOUNDATION BASE HARDWARE PROFILES</h3>
+                        <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-[11px]">
+                            <p><span class="text-slate-800 font-bold">System Configuration:</span> <span id="p-pattern" class="font-mono text-slate-900 font-medium">4-Bolt Framework</span></p>
+                            <p><span class="text-slate-800 font-bold">Bolt Thread Diameter:</span> <span id="p-dia" class="font-mono text-slate-900 font-medium">572</span></p>
+                            <p><span class="text-slate-800 font-bold">Base Plate Thickness:</span> <span id="p-thick" class="font-mono text-slate-900 font-medium">7542</span></p>
+                            <p><span class="text-slate-800 font-bold">Base Plate Width Dimension:</span> <span id="p-wp" class="font-mono text-slate-900 font-medium">452</span></p>
+                            <p class="col-span-2"><span class="text-slate-800 font-bold">Bolt Center Spacing Axis:</span> <span id="p-space" class="font-mono text-slate-900 font-medium">572</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -370,70 +379,41 @@
 
     </div>
 
-    <!-- OPERATIONS ENGINE -->
+    <!-- OPERATIONS CONTROLLER ENGINE -->
     <script>
-        const SECURE_CREW_KEY = "EMPIRE2026";
         let wizardStep = 1;
-        let selectedPatternType = 4;
+        let activeStructurePattern = 4;
 
-        function verifyAccess() {
-            const keyInput = document.getElementById('crewPassword').value;
-            if (keyInput === SECURE_CREW_KEY) {
-                document.getElementById('passwordGate').classList.add('hidden');
-                document.getElementById('appInterface').classList.remove('hidden');
-            } else {
-                document.getElementById('gateError').classList.remove('hidden');
-            }
-        }
-
-        function focusCardField(id) {
-            document.querySelectorAll('.matrix-row').forEach(node => node.classList.remove('active'));
-            document.getElementById(`v-ret${id}`).classList.add('active');
-            document.getElementById(`f-card${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        function syncMatrixMetrics(id) {
-            const rVal = document.getElementById(`r${id}`).value || '';
-            const dVal = document.getElementById(`d${id}`).value || '';
-            const bVal = document.getElementById(`b${id}`).value || '';
+        function liveUpdateMatrix(id) {
+            const rVal = document.getElementById(`r${id}`).value || '-';
+            const dVal = document.getElementById(`d${id}`).value || '-';
+            const targetLabel = document.getElementById(`lbl-m1`);
+            const targetLabel2 = document.getElementById(`lbl-m2`);
             
-            const textNode = document.getElementById(`lbl-m${id}`);
-            const stateDot = document.querySelector(`#f-card${id} .state-dot`);
-            const svgRect = document.getElementById(`v-ret${id}`);
-
-            if (rVal || dVal || bVal) {
-                textNode.textContent = `${rVal} x ${dVal}`;
-                stateDot.classList.replace('bg-slate-300', 'bg-blue-600');
-                svgRect.style.stroke = "#2563eb";
-                svgRect.style.fill = "rgba(37, 99, 235, 0.04)";
-            } else {
-                textNode.textContent = '';
-                stateDot.classList.replace('bg-blue-600', 'bg-slate-300');
-                svgRect.style.stroke = "#cbd5e1";
-                svgRect.style.fill = "#f8fafc";
-            }
+            if(id === 1) targetLabel.textContent = `${rVal} x ${dVal}`;
+            if(id === 2) targetLabel2.textContent = `${rVal} x ${dVal}`;
         }
 
-        function switchFastenerPattern(count) {
-            selectedPatternType = count;
+        function toggleStructuralPattern(count) {
+            activeStructurePattern = count;
             const t4 = document.getElementById('tab4');
             const t6 = document.getElementById('tab6');
             const b6Group = document.getElementById('g-bolts6');
 
             if (count === 4) {
-                t4.className = "py-2.5 rounded-lg transition-all bg-white text-slate-900 shadow-sm border border-slate-200";
-                t6.className = "py-2.5 rounded-lg transition-all text-slate-500 hover:text-slate-800";
+                t4.className = "py-2 rounded-lg transition-all bg-white text-slate-900 shadow-xs border border-slate-200";
+                t6.className = "py-2 rounded-lg transition-all text-slate-500 hover:text-slate-700";
                 b6Group.classList.add('hidden');
             } else {
-                t6.className = "py-2.5 rounded-lg transition-all bg-white text-slate-900 shadow-sm border border-slate-200";
-                t4.className = "py-2.5 rounded-lg transition-all text-slate-500 hover:text-slate-800";
+                t6.className = "py-2 rounded-lg transition-all bg-white text-slate-900 shadow-xs border border-slate-200";
+                t4.className = "py-2 rounded-lg transition-all text-slate-500 hover:text-slate-700";
                 b6Group.classList.remove('hidden');
             }
         }
 
         function navigateWizardStep(direction) {
             if (direction === 1 && wizardStep === 3) {
-                compileEmpireFieldPDF();
+                executeMobileSafePDFDownload();
                 return;
             }
 
@@ -445,8 +425,8 @@
             document.getElementById('canvas-elevation').classList.toggle('hidden', wizardStep !== 2);
             document.getElementById('canvas-baseplate').classList.toggle('hidden', wizardStep !== 3);
 
-            const titleTracks = ["Interactive Cabinet Blueprint", "Structural Height Tolerances", "Base Plate Sizing Matrix"];
-            document.getElementById('diagramTitle').textContent = titleTracks[wizardStep - 1];
+            const headings = ["INTERACTIVE CABINET BLUEPRINT", "STRUCTURAL HEIGHT TOLERANCES", "BASE PLATE SIZING MATRIX"];
+            document.getElementById('diagramTitle').textContent = headings[wizardStep - 1];
             document.getElementById('stepCount').textContent = `Step ${wizardStep} of 3`;
 
             document.getElementById('btnBack').style.opacity = wizardStep === 1 ? '0.4' : '1';
@@ -454,52 +434,54 @@
 
             if (wizardStep === 3) {
                 document.getElementById('btnNext').innerHTML = `Export Survey Report <span class="material-icons text-sm">download</span>`;
-                document.getElementById('btnNext').classList.replace('bg-blue-600', 'bg-emerald-600');
-                document.getElementById('btnNext').classList.replace('hover:bg-blue-700', 'hover:bg-emerald-700');
+                document.getElementById('btnNext').className = "flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs shadow-xs transition-all flex items-center justify-center gap-1";
             } else {
                 document.getElementById('btnNext').innerHTML = `Next Step <span class="material-icons text-sm">arrow_forward</span>`;
-                document.getElementById('btnNext').classList.replace('bg-emerald-600', 'bg-blue-600');
-                document.getElementById('btnNext').classList.replace('hover:bg-emerald-700', 'hover:bg-blue-700');
+                document.getElementById('btnNext').className = "flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-xs transition-all flex items-center justify-center gap-1";
             }
         }
 
-        function compileEmpireFieldPDF() {
-            document.getElementById('pdfPrintDate').innerText = new Date().toLocaleDateString();
+        function executeMobileSafePDFDownload() {
+            // Update Text Node Log Formats
+            document.getElementById('p-r1').innerText = document.getElementById('r1').value || '-';
+            document.getElementById('p-d1').innerText = document.getElementById('d1').value || '-';
+            document.getElementById('p-b1').innerText = document.getElementById('b1').value || '-';
+
+            document.getElementById('p-r2').innerText = document.getElementById('r2').value || '-';
+            document.getElementById('p-d2').innerText = document.getElementById('d2').value || '-';
+            document.getElementById('p-b2').innerText = document.getElementById('b2').value || '-';
+
+            document.getElementById('p-ns').innerText = document.getElementById('curbNS').value || '-';
+            document.getElementById('p-ew').innerText = document.getElementById('curbEW').value || '-';
             
-            document.getElementById('p-r1').innerText = document.getElementById('r1').value || 'Not Disclosed';
-            document.getElementById('p-d1').innerText = document.getElementById('d1').value || 'Not Disclosed';
-            document.getElementById('p-b1').innerText = document.getElementById('b1').value || 'Not Disclosed';
+            document.getElementById('p-oh').innerText = document.getElementById('hOverall').value || '-';
+            document.getElementById('p-hc').innerText = document.getElementById('hClearance').value || '-';
+            document.getElementById('p-pc').innerText = document.getElementById('pCenter').value || '-';
 
-            document.getElementById('p-r2').innerText = document.getElementById('r2').value || 'Not Disclosed';
-            document.getElementById('p-d2').innerText = document.getElementById('d2').value || 'Not Disclosed';
-            document.getElementById('p-b2').innerText = document.getElementById('b2').value || 'Not Disclosed';
+            document.getElementById('p-pattern').innerText = `${activeStructurePattern}-Bolt Framework`;
+            document.getElementById('p-dia').innerText = document.getElementById('bDia').value || '-';
+            document.getElementById('p-thick').innerText = document.getElementById('bThick').value || '-';
+            document.getElementById('p-wp').innerText = document.getElementById('bWidth').value || '-';
+            document.getElementById('p-space').innerText = document.getElementById('bSpacing').value || '-';
 
-            document.getElementById('p-ns').innerText = document.getElementById('curbNS').value || 'Not Disclosed';
-            document.getElementById('p-ew').innerText = document.getElementById('curbEW').value || 'Not Disclosed';
-            
-            document.getElementById('p-oh').innerText = document.getElementById('hOverall').value || 'Not Disclosed';
-            document.getElementById('p-hc').innerText = document.getElementById('hClearance').value || 'Not Disclosed';
-            document.getElementById('p-pc').innerText = document.getElementById('pCenter').value || 'Not Disclosed';
+            const payloadSource = document.getElementById('pdfEnginePrintView');
 
-            document.getElementById('p-pattern').innerText = `${selectedPatternType}-Bolt Framework`;
-            document.getElementById('p-dia').innerText = document.getElementById('bDia').value || 'Not Disclosed';
-            document.getElementById('p-thick').innerText = document.getElementById('bThick').value || 'Not Disclosed';
-            document.getElementById('p-wp').innerText = document.getElementById('bWidth').value || 'Not Disclosed';
-            document.getElementById('p-space').innerText = document.getElementById('bSpacing').value || 'Not Disclosed';
-
-            const printElement = document.getElementById('pdfEnginePrintView');
-            printElement.classList.remove('hidden');
-
-            const printConfiguration = {
-                margin: [0.4, 0.4, 0.4, 0.4],
+            const printingConfiguration = {
+                margin: [0.3, 0.3, 0.3, 0.3],
                 filename: 'EMPIRE-GROUND-SIGN-SURVEY.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
+                image: { type: 'jpeg', quality: 1.0 },
                 html2canvas: { scale: 2, logging: false, useCORS: true },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
-            html2pdf().set(printConfiguration).from(printElement).save().then(() => {
-                printElement.classList.add('hidden');
+            // Mobile Safe Sandbox Worker Trigger Link
+            html2pdf().set(printingConfiguration).from(payloadSource).outputPdf('blob').then(function(pdfBlobFile) {
+                const downloadLinkAnchor = document.createElement('a');
+                downloadLinkAnchor.href = URL.createObjectURL(pdfBlobFile);
+                downloadLinkAnchor.download = 'EMPIRE-GROUND-SIGN-SURVEY.pdf';
+                document.body.appendChild(downloadLinkAnchor);
+                downloadLinkAnchor.click();
+                document.body.removeChild(downloadLinkAnchor);
             });
         }
     </script>
