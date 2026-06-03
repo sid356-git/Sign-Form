@@ -3,148 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empire Canopy, Sign & Construction - Sign Survey Platform</title>
-    <!-- Tailwind CSS v3 Production Engine -->
+    <title>Empire Canopy • Sign • Construction - Sign Survey Platform</title>
+    <!-- Tailwind CSS v4 CDN -->
     <script src="https://jsdelivr.net"></script>
-    <!-- Material Design Icon Typography -->
-    <link href="https://googleapis.com" rel="stylesheet">
-    <!-- html2pdf.js Production Distribution Package -->
+    <!-- Google Fonts for Professional Typography -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- html2pdf Engine Core -->
     <script src="https://cloudflare.com"></script>
+    
     <style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
         .step-panel { display: none; }
         .step-panel.active { display: block; }
-        @media print {
-            body { background: white; color: black; }
-            .no-print { display: none !important; }
-        }
+        /* Custom scrollbar adjustments for premium density presentation */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-900 min-h-screen font-sans flex flex-col">
+<body class="bg-[#f8fafc] text-slate-900 min-h-screen flex flex-col antialiased select-none">
 
-    <!-- PRIMARY WEB APPLICATION CONTAINER LAYER -->
-    <div id="app-workspace" class="flex-1 flex flex-col no-print">
+    <!-- 🔒 SECURITY ACCESS LOCK GATEWAY CONTAINER -->
+    <div id="securityGate" class="fixed inset-0 z-50 bg-slate-900 flex flex-col justify-center items-center px-4">
+        <div class="bg-white p-8 rounded-2xl border border-slate-200 max-w-md w-full shadow-2xl flex flex-col items-center">
+            <!-- Corporate Brand Mark Representation -->
+            <div class="w-28 h-16 mb-4 flex items-center justify-center">
+                <svg viewBox="0 0 216 112" class="w-full h-full object-contain" xmlns="http://w3.org">
+                    <path d="M 40 90 C 40 25, 108 25, 108 90" fill="none" stroke="#ef4444" stroke-width="18" stroke-linecap="square"/>
+                    <path d="M 108 90 C 108 25, 176 25, 176 90" fill="none" stroke="#0b3c95" stroke-width="18" stroke-linecap="square"/>
+                    <path d="M 68 90 L 68 55 M 108 90 L 108 55 M 148 90 L 148 55" fill="none" stroke="#0b3c95" stroke-width="12"/>
+                    <line x1="20" y1="90" x2="196" y2="90" stroke="#1e293b" stroke-width="10"/>
+                </svg>
+            </div>
+            <h2 class="text-xl font-black uppercase tracking-tight text-slate-900 text-center leading-none">Empire</h2>
+            <p class="text-[9px] uppercase tracking-widest text-slate-400 font-extrabold mt-1.5 text-center mb-8">Canopy • Sign • Construction</p>
+            
+            <div class="w-full space-y-4">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Field Protocol Authorization Password</label>
+                    <div class="relative">
+                        <span class="material-icons absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
+                        <input type="password" id="gatePass" placeholder="••••••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm tracking-widest font-mono text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                    </div>
+                </div>
+                <button onclick="verifyAccessKey()" class="w-full bg-slate-950 text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-xl hover:bg-slate-800 transition-all cursor-pointer shadow-sm">
+                    Validate Protocol Access
+                </button>
+                <p id="gateErr" class="text-xs text-red-600 font-semibold text-center hidden">Invalid Protocol Access Code</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🛠️ CORE SURVEY SUITE CORE DASHBOARD WORKSPACE -->
+    <div id="dashboardApp" class="hidden flex-1 flex flex-col min-h-screen">
         
-        <!-- HIGH-FIDELITY APPLICATION HEADER -->
-        <header class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-50 shadow-xs flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <!-- EXPLICIT COMPANY LOGO GRAPHIC ENGINE -->
-                <div class="w-16 h-12 flex items-center justify-center">
-                    <svg viewBox="0 0 230 160" class="w-full h-full" xmlns="http://w3.org">
-                        <!-- RED HIGHER ARCH -->
-                        <path d="M 30 110 C 30 15, 200 15, 200 110" fill="none" stroke="#e11d48" stroke-width="24" stroke-linecap="square"/>
-                        <!-- BLUE COLUMN PILLARS -->
-                        <path d="M 75 60 L 75 125" fill="none" stroke="#1d4ed8" stroke-width="20" stroke-linecap="square"/>
-                        <path d="M 115 50 L 115 125" fill="none" stroke="#1d4ed8" stroke-width="20" stroke-linecap="square"/>
-                        <path d="M 155 60 L 155 125" fill="none" stroke="#1d4ed8" stroke-width="20" stroke-linecap="square"/>
-                        <!-- BOTTOM BASE LINE ACCENT -->
-                        <path d="M 20 125 L 210 125" fill="none" stroke="#1e293b" stroke-width="8"/>
+        <!-- FLUID HIGH-END MASTER SYSTEM HEADER -->
+        <header class="bg-white border-b border-slate-200 px-6 py-3 sticky top-0 z-40 shadow-xs flex justify-between items-center h-16 shrink-0">
+            <div class="flex items-center space-x-3">
+                <div class="w-16 h-10 flex items-center justify-center">
+                    <svg viewBox="0 0 216 112" class="w-full h-full object-contain" xmlns="http://w3.org">
+                        <path d="M 40 90 C 40 25, 108 25, 108 90" fill="none" stroke="#ef4444" stroke-width="18" stroke-linecap="square"/>
+                        <path d="M 108 90 C 108 25, 176 25, 176 90" fill="none" stroke="#0b3c95" stroke-width="18" stroke-linecap="square"/>
+                        <path d="M 68 90 L 68 55 M 108 90 L 108 55 M 148 90 L 148 55" fill="none" stroke="#0b3c95" stroke-width="12"/>
+                        <line x1="20" y1="90" x2="196" y2="90" stroke="#1e293b" stroke-width="10"/>
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-lg font-black tracking-tight text-slate-900 uppercase leading-none">Empire</h1>
-                    <p class="text-[9px] uppercase tracking-widest text-slate-500 font-extrabold mt-1">Canopy &bull; Sign &bull; Construction</p>
+                    <h1 class="text-sm font-black tracking-tight text-slate-900 uppercase leading-none">Empire</h1>
+                    <p class="text-[8px] uppercase tracking-widest text-slate-400 font-extrabold mt-0.5">Canopy • Sign • Construction</p>
                 </div>
             </div>
-            <div class="text-right">
-                <span class="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-bold border border-blue-200 uppercase tracking-wider">
-                    Field Survey Module
+            
+            <div class="text-right flex flex-col items-end">
+                <span class="bg-slate-50 text-slate-800 text-[9px] px-2.5 py-1 rounded-md font-bold border border-slate-200 uppercase tracking-wider shadow-2xs">
+                    Sign Survey Interface
                 </span>
-                <p id="step-tracker" class="text-[10px] text-slate-400 font-mono mt-1.5 font-bold">Step 1 of 3</p>
+                <span id="stepCount" class="text-[9px] text-slate-400 font-mono mt-0.5 font-bold">Step 1 of 3</span>
             </div>
         </header>
 
-        <!-- MAIN BALANCED DATA CAPTURE WORKSPACE -->
-        <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-24">
+        <!-- TWO-COLUMN FLUID SCALING VIEWPORT APPARATUS -->
+        <main class="flex-1 flex flex-col lg:flex-row w-full max-w-[1600px] mx-auto p-4 gap-6 items-stretch mb-20 overflow-hidden">
             
-            <!-- LEFT WORKSPACE VIEWPORT: STRUCTURAL REALISTIC BLUEPRINT CARD -->
-            <section class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-xs sticky top-[100px]">
-                <h3 id="blueprint-title" class="text-[11px] font-black tracking-widest text-slate-400 uppercase mb-6 text-center">
-                    REALISTIC CABINET DESIGN MATRIX
-                </h3>
-                
-                <!-- PREVIEW 1: SIGN CABINET INTERACTIVE GRID MAPPING -->
-                <div id="viewport-matrix" class="w-full flex justify-center items-center py-4">
-                    <div class="flex items-center gap-6 w-full max-w-xs">
-                        <div id="blueprint-stack-output" class="flex flex-col-reverse gap-2 flex-1">
-                            <!-- Dynamic Layer Stack Box Components Generated via Engine -->
-                        </div>
-                        <div class="flex flex-col justify-between h-48 text-slate-400 font-mono text-xs">
-                            <span class="material-icons text-sm leading-none">arrow_upward</span>
-                            <div class="w-[1px] h-full bg-slate-200 mx-auto"></div>
-                            <span class="material-icons text-sm leading-none">arrow_downward</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PREVIEW 2: STRUCTURAL OFFSETS & FIELD ELEVATIONS -->
-                <div id="viewport-elevation" class="w-full hidden py-2 flex justify-center">
-                    <svg width="280" height="240" viewBox="0 0 280 240" class="overflow-visible">
-                        <!-- Grade Base Floor -->
-                        <line x1="10" y1="200" x2="270" y2="200" stroke="#0f172a" stroke-width="3"/>
-                        <text x="235" y="218" class="fill-slate-400 text-[10px] font-black tracking-wider uppercase">GRADE</text>
-                        <!-- Ground Support Dual Columns -->
-                        <rect x="90" y="80" width="14" height="120" fill="#475569"/>
-                        <rect x="160" y="80" width="14" height="120" fill="#475569"/>
-                        <!-- Sign Cabinet Profile Box Overlay -->
-                        <rect x="70" y="30" width="120" height="50" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
-                        <text x="130" y="60" text-anchor="middle" class="fill-white font-bold text-xs">SIGN</text>
-
-                        <!-- Measurement Vector Lines (Overall Height Layout) -->
-                        <g fill="none" stroke="#2563eb" stroke-width="1.5">
-                            <path d="M 40 30 L 40 200"/>
-                            <path d="M 36 38 L 40 30 L 44 38"/>
-                            <path d="M 36 192 L 40 200 L 44 192"/>
-                        </g>
-                        <text x="28" y="115" text-anchor="middle" transform="rotate(-90 28,115)" class="fill-blue-600 font-mono text-[9px] font-black uppercase tracking-wider">OVERALL HT</text>
-
-                        <!-- Measurement Vector Lines (Clearance Line) -->
-                        <g fill="none" stroke="#16a34a" stroke-width="1.5">
-                            <path d="M 215 80 L 215 200"/>
-                            <path d="M 211 88 L 215 80 L 219 88"/>
-                            <path d="M 211 192 L 215 200 L 219 192"/>
-                        </g>
-                        <text x="226" y="140" text-anchor="middle" transform="rotate(90 226,140)" class="fill-green-600 font-mono text-[9px] font-black uppercase tracking-wider">CLEARANCE</text>
-                    </svg>
-                </div>
-
-                <!-- PREVIEW 3: ANCHOR PLATFORMS & BOLTS PROFILE -->
-                <div id="viewport-baseplate" class="w-full hidden py-6 flex justify-center">
-                    <svg width="200" height="200" viewBox="0 0 200 200" class="overflow-visible">
-                        <!-- Structural Plate Outer Boundary -->
-                        <rect x="25" y="25" width="150" height="150" rx="6" fill="#f8fafc" stroke="#334155" stroke-width="3"/>
-                        <!-- Support Post Core Section Column Profile -->
-                        <circle cx="100" cy="100" r="32" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+            <!-- LEFT COMPONENT COLUMN: REAL-TIME DYNAMIC DRAWING SCHEMATIC PANEL -->
+            <section class="w-full lg:w-1/2 xl:w-5/12 flex">
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs w-full flex flex-col items-center justify-between min-h-[450px] lg:min-h-0 relative">
+                    <span class="text-[10px] font-black tracking-widest text-slate-400 uppercase mb-4 block text-center" id="diagramTitle">
+                        INTERACTIVE CABINET BLUEPRINT
+                    </span>
+                    
+                    <!-- DRAWING CONTAINER VIEWPORT -->
+                    <div class="flex-1 w-full flex items-center justify-center overflow-hidden py-4">
                         
-                        <!-- 4 Corner Structural Fasteners -->
-                        <g id="svg-bolts-4" fill="#475569">
-                            <circle cx="55" cy="55" r="8"/>
-                            <circle cx="145" cy="55" r="8"/>
-                            <circle cx="55" cy="145" r="8"/>
-                            <circle cx="145" cy="145" r="8"/>
-                        </g>
-                        <!-- 6 Heavy-Duty Middle Fasteners -->
-                        <g id="svg-bolts-6" fill="#dd6b20" class="hidden">
-                            <circle cx="55" cy="100" r="8"/>
-                            <circle cx="145" cy="100" r="8"/>
-                        </g>
-                    </svg>
-                </div>
-            </section>
+                        <!-- VIEWPORT 1: STACKED CABINET SCHEMATIC MAP -->
+                        <div id="canvas-matrix" class="w-full flex justify-center items-center">
+                            <div class="flex items-center gap-6 w-full max-w-sm justify-center">
+                                <div id="visual-stack-container" class="flex flex-col gap-2 w-48 items-center">
+                                    <!-- Script targets dynamic layout boxes here -->
+                                </div>
+                                <div class="flex flex-col justify-between h-64 text-slate-400 font-mono text-[10px]">
+                                    <span class="material-icons text-sm leading-none">arrow_upward</span>
+                                    <div class="w-[1px] h-full bg-slate-200 mx-auto"></div>
+                                    <span class="material-icons text-sm leading-none">arrow_downward</span>
+                                </div>
+                            </div>
+                        </div>
 
-            <!-- RIGHT WORKSPACE VIEWPORT: MULTI-STEP SURVEY INPUT PLATFORM -->
-            <section class="lg:col-span-7">
-                
-                <!-- MODULE PANEL STEP 1: CABINET COMPONENT DIMENSION SYSTEM -->
-                <div id="step-panel-1" class="step-panel active space-y-6">
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
-                        <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
-                            <h2 class="text-sm font-black text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                                <span class="material-icons text-blue-600">view_day</span> Sign Cabinet Configurations [Page 1]
-                            </h2>
-                            <div class="flex gap-2">
-                                <button type="button" onclick="popCabinetStack()" class="px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl text-xs font-bold transition-all flex items-center gap-1">
-                                    <span class="material-icons text-sm">remove</span> Remove Layer
-                                </button>
-                                <button type="button" onclick="pushCabinetStack()" class="px-3 py-1.5 bg-blue-600 text-white hover:bg-blue-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1 shadow-xs">
-                                    <span class="material-icons text-sm">add</span> Add Cabinet
-                                </button>
+                        <!-- VIEWPORT 2: STRUCTURAL ELEVATION & ROADWAY PROFILE -->
+                        <div id="canvas-elevation" class="w-full hidden justify-center">
+                            <svg width="320" height="280" viewBox="0 0 320 280" class="overflow-visible w-full max-w-xs">
+                                <!-- Double Support Columns Schematic -->
+                                <rect x="90" y="50" width="16" height="150" fill="#475569" rx="1"/>
+                                <rect x="214" y="50" width="16" height="150" fill="#475569" rx="1"/>
+                                <!-- Simulated Sign Cabinet Layout Base -->
+                                <rect x="60" y="50" width="200" height="70" rx="4" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
+                                <!-- Grade Line Representation -->
+                                <line x1="20" y1="200" x2="300" y2="200" stroke="#0f172a" stroke-width="4" stroke-linecap="round"/>
+                                <text x="270" y="220" class="fill-slate-400 font-black text-[9px] tracking-wider uppercase">GRADE</text>
+
+                                <!-- Dimension Height Profiles Mapping (Overall) -->
+                                <g fill="none" stroke="#2563eb" stroke-width="1.5">
+                                    <path d="M 40 50 L 40 200"/>
+                                    <path d="M 36 58 L 40 50 L 44 58"/>
+                                    <path d="M 36 192 L 40 200 L 44 192"/>
+                                </g>
+                                <text x="28" y="125" text-anchor="middle" transform="rotate(-90 28,125)" class="fill-blue-600 font-mono text-[9px] font-bold tracking-wider">OVERALL HT</text>
+
+                                <!-- Dimension Clearance Mapping Lines -->
+                                <g fill="none" stroke="#16a34a" stroke-width="1.5">
+                                    <path d="M 280 120 L 280 200"/>
