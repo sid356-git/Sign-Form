@@ -349,7 +349,7 @@ document.getElementById('canvas-matrix').classList.toggle('hidden', wizardStep !
 document.getElementById('canvas-elevation').classList.toggle('hidden', wizardStep !== 2);
 document.getElementById('canvas-baseplate').classList.toggle('hidden', wizardStep !== 3);
 
-const headings = ['PAPER FORM MATCHED CABINET LAYOUT', 'POLE SIGN ELEVATION REFERENCE', 'BASE PLATE REFERENCE VIEW'];
+const headings = ['POLE SIGN ELEVATION REFERENCE', 'BASE PLATE REFERENCE VIEW'];
 document.getElementById('diagramTitle').textContent = headings[wizardStep - 1];
 document.getElementById('stepCount').textContent = `Step ${wizardStep} of 3`; const statusNode = document.getElementById('crewSessionStatus'); if (statusNode) statusNode.textContent = wizardStep === 3 ?
 'Ready to Export' : `Completing Step ${wizardStep}`;
